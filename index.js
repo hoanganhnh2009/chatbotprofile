@@ -89,7 +89,11 @@ login(
             }
             else if (message.body) {
                 console.log(message)
-                answeredThreads[message.threadID] = true;
+                answeredThreads[message.threadID] = false;
+                var path2 = /(09|01[2|6|8|9]|03)+([0-9]{8,9})\b/g;
+                var result = message.body.match(path2);
+                console.log(result)
+
                 var listRandomQuestion = [
                     'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
                     `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
@@ -112,6 +116,9 @@ login(
         });
     });
 
+function xuLyPhone(phoneNumber) {
+    console.log(phoneNumber)
+}
 /// OK save
 
 /*
