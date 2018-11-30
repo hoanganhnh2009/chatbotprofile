@@ -17,21 +17,28 @@ app.get('/', function (req, res) {
 })
 app.get('/spam', function (req, res) {
     // const data = getListFriends()
-    var http3 = new XMLHttpRequest()
+    // var http3 = new XMLHttpRequest()
     var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
-    http3.open('GET', 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token);
-    http3.send();
-    http3.onreadystatechange = function () {
-        if (http3.readyState == 4 && http3.status == 200) {
-            graphData = JSON.parse(http3.responseText);
-            console.log(graphData)
-            // return graphData
-            res.send(graphData)
-            // graphData.data.forEach((pdata) => {
+    // http3.open('GET', 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token);
+    // http3.send();
+    // http3.onreadystatechange = function () {
+    //     if (http3.readyState == 4 && http3.status == 200) {
+    //         graphData = JSON.parse(http3.responseText);
+    //         console.log(graphData)
+    //         // return graphData
+    //         res.send(graphData)
+    //         // graphData.data.forEach((pdata) => {
 
-            // })
-        }
-    }
+    //         // })
+    //     }
+    // }
+    request.get({
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+        url: 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token
+    }, function (error, response, body) {
+        console.log(body)
+        res.send(graphData)
+    })
 })
 
 function getListFriends() {
