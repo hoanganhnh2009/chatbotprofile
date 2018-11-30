@@ -100,7 +100,7 @@ login(
                 api.markAsRead(message.threadID);
                 console.log("Sender ID: " + message.senderID);
             }
-            else if (message.body === "fb") {
+            else if (message.body.includes("fb", 'facebook', 'FB')) {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Xin mời click : https://www.facebook.com/huu.thanh.2509 để ghé thăm tường của tôi", message.threadID);
                 api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
@@ -195,7 +195,7 @@ login(
                 return;
             }
             // #chung
-            else if (message.body === "sdt") {
+            else if (message.body.includes("sdt")) {
                 console.log('sdt')
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Chào bạn! Đây là số điện thoại của tôi: 0982112395", message.threadID);
