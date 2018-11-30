@@ -94,6 +94,7 @@ login(
             }
             else if (answeredThreads.hasOwnProperty(message.threadID)) {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                answeredThreads[message.threadID] = true;
                 //     api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
                 //     answeredThreads[message.threadID] = false;
                 return;
