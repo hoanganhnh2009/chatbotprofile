@@ -83,7 +83,8 @@ login(
             }
             else if (answeredThreads.hasOwnProperty(message.threadID)) {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                api.sendMessage("Đây là tin nhắn tự động, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
+                api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
+                answeredThreads[message.threadID] = false;
                 return;
             }
             else if (message.body) {
