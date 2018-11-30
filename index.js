@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
 app.get('/spam', function (req, res) {
-    res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
+    res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành, Spam trong này nè`)
 })
 login(
     // {
