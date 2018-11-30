@@ -115,8 +115,8 @@ login(
                         , message.threadID);
                     return;
                 }
-                if (message.body.include('ngủ')) {
-                    api.sendMessage(`Chúc cậu ngủ ngon nhé (Tớ là bot của Thành đẹp trai)`
+                if (message.body.includes('ngủ')) {
+                    api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé nhé!!!! (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
