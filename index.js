@@ -18,6 +18,11 @@ app.get('/', function (req, res) {
 app.get('/spam', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành, Spam trong này nè`)
 })
+
+function getListFriends(){
+    var token = ''
+    
+}
 login(
     // {
     //     email: "EMAIL_FB",
@@ -123,6 +128,7 @@ login(
             }
         });
     });
+
 
 function xuLyPhone(str) {
     // var str = message.body;
