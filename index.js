@@ -1,5 +1,19 @@
+//***********************************
+//*			Install Modules			*
+//*---------------------------------*
+//*		Install with command		*
+//*									*
+//* npm install request				*
+//* npm install facebook-chat-api	*
+//*									*
+//***********************************
+// Facebook Chat API By MR.Thanh
+// Git_URL: https://github.com/Schmavery/facebook-chat-api
+// URL: https://github.com/hoanganhnh2009/chatbotprofile
+// Code: Nguyen Huu Thanh - thanhnh2509@gmail.com
+
 var request = require("request");
-// var botkey = "http://www.simsimi.com/getRealtimeReq?uuid=UwmPMKoqosEETKleXWGOJ6lynN1TQq18wwvrmCy6IRt&lc=vn&ft=0&reqText=";
+var botkey = "http://www.simsimi.com/getRealtimeReq?uuid=UwmPMKoqosEETKleXWGOJ6lynN1TQq18wwvrmCy6IRt&lc=vn&ft=0&reqText=";
 var login = require("facebook-chat-api");
 const fs = require("fs");
 
@@ -16,7 +30,7 @@ app.listen(port, function () {
 app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
-app.get('/send',()=>{
+app.get('/send', () => {
     login(
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
@@ -25,22 +39,7 @@ app.get('/send',()=>{
         })
 })
 app.get('/spam', function (req, res) {
-    // const data = getListFriends()
-    // var http3 = new XMLHttpRequest()
     var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
-    // http3.open('GET', 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token);
-    // http3.send();
-    // http3.onreadystatechange = function () {
-    //     if (http3.readyState == 4 && http3.status == 200) {
-    //         graphData = JSON.parse(http3.responseText);
-    //         console.log(graphData)
-    //         // return graphData
-    //         res.send(graphData)
-    //         // graphData.data.forEach((pdata) => {
-
-    //         // })
-    //     }
-    // }
     request("https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=" + token, function (err, res, body) {
         //nếu có lỗi
         if (err)
@@ -54,21 +53,7 @@ app.get('/spam', function (req, res) {
 })
 
 function getListFriends() {
-    var http3 = new XMLHttpRequest()
-    var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
-    http3.open('GET', 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token);
-    http3.send();
-    http3.onreadystatechange = function () {
-        if (http3.readyState == 4 && http3.status == 200) {
-            graphData = JSON.parse(http3.responseText);
-            console.log(graphData)
-            return graphData
-            // graphData.data.forEach((pdata) => {
-
-            // })
-        }
-    }
-
+    return
 }
 login(
     // {
@@ -222,36 +207,53 @@ login(
                 api.markAsRead(message.threadID);
                 return;
             }
-            else if (answeredThreads.hasOwnProperty(message.threadID)) {
-                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                answeredThreads[message.threadID] = true;
-                //     api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
-                //     answeredThreads[message.threadID] = false;
-                return;
-            }
+            // else if (answeredThreads.hasOwnProperty(message.threadID)) {
+            //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+            //     answeredThreads[message.threadID] = true;
+            //     return;
+            // }
             else if (message.body) {
                 console.log(message)
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
-                    var listRandomQuestion = [
-                        'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
-                        `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
-                        \n ----
-                        \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
-                        'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
-                        'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
-                        'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
-                    ]
-                    Array.prototype.rand = function () {
-                        return this[Math.floor(Math.random() * this.length)];
-                    }
-                    console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                    if (message.threadID !== "100009934114000") {
-                        api.sendMessage(listRandomQuestion.rand(), message.threadID)
-                        api.sendMessage("\n \n -------I S2 U------\nTin nhắn trả lời tự động.\n Bạn muốn tìm hiểu thêm thông tin về tôi? HD:  \n- Trả lời: 'fb' để ghé thăm tường của tôi. \n- Trả lời: 'sdt' để lấy số điện thoại của tôi. \n- Trả lời kèm 'stop' ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện. \n" + message.body, message.threadID);
-                        api.markAsRead(message.threadID);
-                    }
+                    request(botkey + encodeURI(message.body),
+                        function (error, response, body) {
+                            if (error) api.sendMessage("Chatbot không trả lời được :)", message.threadID);
+                            if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("respSentence") < 0)
+                                api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID
+                                );
+                            text = JSON.parse(body);
+                            console.log(text)
+                            if (text.status == "200") {
+                                SimsimiAnswered = text.respSentence;
+                                if (message.body === text.respSentence) {
+                                    return;
+                                } else
+                                    SimsimiAnswered = text.respSentence;
+                                api.sendMessage(SimsimiAnswered, message.threadID);
+                                api.markAsRead(message.threadID);
+                                console.log("Answered:" + SimsimiAnswered);
+                            }
+                        });
+                    // var listRandomQuestion = [
+                    //     'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
+                    //     `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
+                    //     \n ----
+                    //     \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
+                    //     'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
+                    //     'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
+                    //     'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
+                    // ]
+                    // Array.prototype.rand = function () {
+                    //     return this[Math.floor(Math.random() * this.length)];
+                    // }
+                    // console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                    // if (message.threadID !== "100009934114000") {
+                    //     api.sendMessage(listRandomQuestion.rand(), message.threadID)
+                    //     api.sendMessage("\n \n -------I S2 U------\nTin nhắn trả lời tự động.\n Bạn muốn tìm hiểu thêm thông tin về tôi? HD:  \n- Trả lời: 'fb' để ghé thăm tường của tôi. \n- Trả lời: 'sdt' để lấy số điện thoại của tôi. \n- Trả lời kèm 'stop' ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện. \n" + message.body, message.threadID);
+                    //     api.markAsRead(message.threadID);
+                    // }
                     return;
                 } else {
                     api.sendMessage('Chào bạn, Đây có phải là số điện thoại của bạn ' + isPhone[0], message.threadID)
