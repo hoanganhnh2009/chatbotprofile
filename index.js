@@ -92,15 +92,15 @@ login(
                 api.markAsRead(message.threadID);
                 return;
             }
-            // else if (answeredThreads.hasOwnProperty(message.threadID)) {
-            //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-            //     api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
-            //     answeredThreads[message.threadID] = false;
-            //     return;
-            // }
-            else if (message.body && answeredThreads.hasOwnProperty(message.threadID)) {
+            else if (answeredThreads.hasOwnProperty(message.threadID)) {
+                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                //     api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
+                //     answeredThreads[message.threadID] = false;
+                return;
+            }
+            else if (message.body) {
                 console.log(message)
-                answeredThreads[message.threadID] = false;
+                answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
                     var listRandomQuestion = [
