@@ -32,11 +32,15 @@ app.get('/spam', function (req, res) {
     //         // })
     //     }
     // }
-    request.get({
-        headers: { 'content-type': 'application/x-www-form-urlencoded' },
-        url: 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token
-    }, function (error, response, body) {
-        console.log(body)
+    request("https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=" + token, function (err, res, body) {
+        //nếu có lỗi
+        if (err)
+            throw err;
+        //in ra header
+
+        console.log(res);
+        //in ra body nhận được
+        console.log(body);
         res.send(graphData)
     })
 })
