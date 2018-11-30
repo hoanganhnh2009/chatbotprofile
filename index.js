@@ -19,7 +19,7 @@ app.get('/spam', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành, Spam trong này nè`)
 })
 
-function getListFriends(){
+function getListFriends() {
     var token = ''
 
 }
@@ -98,9 +98,9 @@ login(
             //     answeredThreads[message.threadID] = false;
             //     return;
             // }
-            else if (message.body) {
+            else if (message.body && answeredThreads.hasOwnProperty(message.threadID)) {
                 console.log(message)
-                answeredThreads[message.threadID] = true;
+                answeredThreads[message.threadID] = false;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
                     var listRandomQuestion = [
