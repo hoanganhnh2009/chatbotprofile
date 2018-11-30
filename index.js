@@ -97,6 +97,7 @@ login(
                 console.log(message)
                 answeredThreads[message.threadID] = false;
                 const isPhone = xuLyPhone(message.body)
+                console.log(isPhone)
                 if (isPhone) {
                     var listRandomQuestion = [
                         'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
@@ -127,7 +128,6 @@ function xuLyPhone(str) {
     // var str = message.body;
     var path2 = /(09|01[2|6|8|9]|03)+([0-9]{8,9})\b/g;
     var result = str.match(path2);
-    console.log(result)
     return result
 }
 /// OK save
