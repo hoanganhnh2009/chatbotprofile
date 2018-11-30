@@ -135,6 +135,11 @@ login(
                         , message.threadID);
                     return;
                 }
+                else if (message.body.includes('đi chơi')) {
+                    api.sendMessage(`Không ở nhà thôi :D (Tớ là bot của Thành đẹp trai)`
+                        , message.threadID);
+                    return;
+                }
                 api.sendMessage(`Chào Thân :) \nHiện tại Tớ đang không online \nTớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 return;
             }
