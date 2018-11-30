@@ -219,6 +219,7 @@ login(
                 if (!isPhone) {
                     request(botkey + encodeURI(message.body),
                         function (error, response, body) {
+                            console.log(body)dasdsa
                             if (error) api.sendMessage("Chatbot không trả lời được :)", message.threadID);
                             if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("respSentence") < 0)
                                 api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID
