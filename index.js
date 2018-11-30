@@ -12,6 +12,9 @@ app.listen(process.env.PORT || 5000, function () {
     console.log('Node server running @ http://localhost:3000')
 });
 
+app.get('/',function(req,res){
+    res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
+})
 login(
     // {
     //     email: "EMAIL_FB",
@@ -81,12 +84,12 @@ login(
                 api.markAsRead(message.threadID);
                 return;
             }
-            else if (answeredThreads.hasOwnProperty(message.threadID)) {
-                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
-                answeredThreads[message.threadID] = false;
-                return;
-            }
+            // else if (answeredThreads.hasOwnProperty(message.threadID)) {
+            //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+            //     api.sendMessage("Đây là tin nhắn tự động, Tôi đang không online, đừng spam nữa nhé.\n Chúc bạn một ngày tốt lành \nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn \n" + message.body, message.threadID);
+            //     answeredThreads[message.threadID] = false;
+            //     return;
+            // }
             else if (message.body) {
                 console.log(message)
                 answeredThreads[message.threadID] = false;
