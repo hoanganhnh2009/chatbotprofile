@@ -116,17 +116,22 @@ login(
                     return;
                 }
                 else if (message.body.includes('ngủ')) {
-                    api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé nhé!!!! (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('mệt')) {
-                    api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  :( ) (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('hehe','haha')) {
-                    api.sendMessage(`Cười gì mà cười :D (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 (Tớ là bot của Thành đẹp trai)`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('huhu','hic')) {
+                    api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc   (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
