@@ -151,7 +151,7 @@ login(
                         , message.threadID);
                     return;
                 }
-                api.sendMessage(`Chào Thân :) \nHiện tại Tớ đang không online \nTớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
+                // api.sendMessage(`Chào Thân :) \nHiện tại Tớ đang không online \nTớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 return;
             }
             // chung
