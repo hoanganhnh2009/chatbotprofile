@@ -40,8 +40,7 @@ app.get('/spam', function (req, res) {
 
         console.log(res);
         //in ra body nhận được
-        console.log(body);
-        res.send(graphData)
+        res.send(body)
     })
 })
 
@@ -110,8 +109,17 @@ login(
             // 100012583503752
             // tra loi neu than inbox
             if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
-                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                api.sendMessage("Xin Chào Thân :) \n Hiện tại Tớ đang không online \n Tớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe", message.threadID);
+                console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
+                if (message.body.include('ăn')) {
+                    api.sendMessage(`Tớ chưa cậu ạ. Cậu ăn chưa`
+                        , message.threadID);
+                    return;
+                }
+                api.sendMessage(`Chào Thân :) \n
+                 Hiện tại Tớ đang không online \n
+                  Tớ sẽ trả lời cậu khi đọc được tin nhắn này \n 
+                    Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`
+                    , message.threadID);
                 return;
             }
 
