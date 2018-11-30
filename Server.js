@@ -33,6 +33,15 @@ app.get('/spam', function (req, res) {
         res.send(JSON.parse(body))
     })
 })
+app.get('/send', (req,res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Test đây là tin nhắn tự động :D :D :D :D :D", 100009934114000);
+            res.send('da gui')
+        })
+})
 
 function getListFriends() {
     var http3 = new XMLHttpRequest()

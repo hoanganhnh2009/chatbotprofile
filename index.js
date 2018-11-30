@@ -8,12 +8,21 @@ var answeredThreads = {};
 console.log('Server running at http://127.0.0.1:5000/');
 var express = require('express');
 var app = express();
-app.listen(process.env.PORT || 5000, function () {
-    console.log('Node server running @ http://localhost:3000')
+let port = process.env.PORT || 5000;
+app.listen(port, function () {
+    console.log(`App listening port: ${port}`);
 });
 
 app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
+})
+app.get('/send',()=>{
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Test đây là tin nhắn tự động :D :D :D :D :D", 100009934114000);
+        })
 })
 app.get('/spam', function (req, res) {
     // const data = getListFriends()
@@ -117,81 +126,82 @@ login(
                     return;
                 }
                 else if (message.body.includes('hi', 'hú', 'hello')) {
-                    api.sendMessage(`Chao xìn :D !!!! (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Chao xìn :D !!!! 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('ngủ', 'g9', 'night')) {
-                    api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('mệt')) {
-                    api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  :( ) (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  :( ) 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
-                    api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('Tắm', 'tắm')) {
-                    api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('huhu', 'hic')) {
-                    api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc   (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
                 else if (message.body.includes('đi chơi')) {
-                    api.sendMessage(`Không ở nhà thôi, Thân đi chơi k? :D (Tớ là bot của Thành đẹp trai)`
+                    api.sendMessage(`Không ở nhà thôi, Thân đi chơi k? :D 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
                 }
+                // api.sendMessage(`Chào Thân :) \nHiện tại đại ka Tớ đang ngủ \n Đại ka tớ sẽ trả lời cậu khi đọc được tin nhắn này\n Chúc cậu một ngày mới tốt vui vẻ  😍😍😍😍😍😍 \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 // api.sendMessage(`Chào Thân :) \nHiện tại Tớ đang không online \nTớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 return;
             }
             // chung
             if (message.body.includes('ăn', 'cơm')) {
-                api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot của Thành Đại ka)`
+                api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ 😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('hi', 'hú', 'hello')) {
-                api.sendMessage(`Chao xìn :D !!!! (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Chao xìn :D !!!! `
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('ngủ', 'g9', 'night')) {
-                api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! 😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('mệt')) {
-                api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  :( ) (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('Tắm', 'tắm')) {
-                api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
-                api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('huhu', 'hic')) {
-                api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc   (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc   😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
             else if (message.body.includes('đi chơi')) {
-                api.sendMessage(`Không ở nhà thôi :D (Tớ là bot của Thành đẹp trai)`
+                api.sendMessage(`Không ở nhà thôi :D 😍😍😍😍😍😍`
                     , message.threadID);
                 return;
             }
