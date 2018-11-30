@@ -111,7 +111,7 @@ login(
             if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
                 console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
                 if (message.body.include('ăn')) {
-                    api.sendMessage(`Tớ chưa cậu ạ. Cậu ăn chưa`
+                    api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot)`
                         , message.threadID);
                     return;
                 }
