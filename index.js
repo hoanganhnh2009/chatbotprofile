@@ -12,7 +12,10 @@ app.listen(process.env.PORT || 5000, function () {
     console.log('Node server running @ http://localhost:3000')
 });
 
-app.get('/',function(req,res){
+app.get('/', function (req, res) {
+    res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
+})
+app.get('/spam', () => {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
 login(
@@ -93,34 +96,38 @@ login(
             else if (message.body) {
                 console.log(message)
                 answeredThreads[message.threadID] = false;
-                var path2 = /(09|01[2|6|8|9]|03)+([0-9]{8,9})\b/g;
-                var result = message.body.match(path2);
-                console.log(result)
-
-                var listRandomQuestion = [
-                    'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
-                    `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
-                    \n ----
-                    \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
-                    'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
-                    'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
-                    'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
-                ]
-                Array.prototype.rand = function () {
-                    return this[Math.floor(Math.random() * this.length)];
+                const isPhone = xuLyPhone(message.body)
+                if (isPhone) {
+                    var listRandomQuestion = [
+                        'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
+                        `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
+                        \n ----
+                        \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
+                        'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
+                        'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
+                        'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
+                    ]
+                    Array.prototype.rand = function () {
+                        return this[Math.floor(Math.random() * this.length)];
+                    }
+                    // console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                    // api.sendMessage(listRandomQuestion.rand(), message.threadID)
+                    // api.sendMessage("\n \n -------I S2 U------\nTin nhắn trả lời tự động.\n Bạn muốn tìm hiểu thêm thông tin về tôi? HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện. \n" + message.body, message.threadID);
+                } else {
+                    api.sendMessage('Chào bạn, Đây có phải là số điện thoại của bạn ' + isPhone[0], message.threadID)
                 }
-                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                api.sendMessage(listRandomQuestion.rand(), message.threadID)
-                console.log(listRandomQuestion.rand())
-                api.sendMessage("\n \n -------I S2 U------\nTin nhắn trả lời tự động.\n Bạn muốn tìm hiểu thêm thông tin về tôi? HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện. \n" + message.body, message.threadID);
                 api.markAsRead(message.threadID);
                 return;
             }
         });
     });
 
-function xuLyPhone(phoneNumber) {
-    console.log(phoneNumber)
+function xuLyPhone(str) {
+    // var str = message.body;
+    var path2 = /(09|01[2|6|8|9]|03)+([0-9]{8,9})\b/g;
+    var result = str.match(path2);
+    console.log(result)
+    return result
 }
 /// OK save
 
