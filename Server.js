@@ -33,7 +33,7 @@ app.get('/spam', function (req, res) {
         res.send(JSON.parse(body))
     })
 })
-app.get('/send', (req,res) => {
+app.get('/send', (req, res) => {
     login(
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
@@ -60,3 +60,12 @@ function getListFriends() {
     }
 
 }
+
+function getToDay() {
+    var today = new Date();
+    var day = today.getDate();
+    var h = today.getHours();
+    var phut = today.getMinutes();
+    console.log(day)
+}
+getToDay()

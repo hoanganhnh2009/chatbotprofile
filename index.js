@@ -13,7 +13,8 @@
 // Code: Nguyen Huu Thanh - thanhnh2509@gmail.com
 
 var request = require("request");
-var botkey = "http://www.simsimi.com/getRealtimeReq?uuid=UwmPMKoqosEETKleXWGOJ6lynN1TQq18wwvrmCy6IRt&lc=vn&ft=0&reqText=";
+// var botkey = "http://www.simsimi.com/getRealtimeReq?uuid=4c6867ab-0f03-4921-8553-30214e4be8fb&lc=vn&ft=0&reqText=";
+var botkey = "http://sandbox.api.simsimi.com/request.p?key=4c6867ab-0f03-4921-8553-30214e4be8fb&lc=vn&ft=1.0&text=";
 var login = require("facebook-chat-api");
 const fs = require("fs");
 
@@ -145,7 +146,7 @@ login(
                         , message.threadID);
                     return;
                 }
-                // api.sendMessage(`Chào Thân :) \nHiện tại đại ka Tớ đang ngủ \n Đại ka tớ sẽ trả lời cậu khi đọc được tin nhắn này\n Chúc cậu một ngày mới tốt vui vẻ  😍😍😍😍😍😍 \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
+                api.sendMessage(`Chào Thân :) \nHiện tại đại ka Tớ đang ngủ \n Đại ka tớ sẽ trả lời cậu khi đọc được tin nhắn này\n Chúc cậu một ngày mới tốt vui vẻ  😍😍😍😍😍😍 \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 // api.sendMessage(`Chào Thân :) \nHiện tại Tớ đang không online \nTớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 return;
             }
@@ -198,6 +199,11 @@ login(
                 api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
                 return;
             }
+            else if(message.body.toLowerCase() === 'hu') {
+                console.log("FormID: " + message.threadID + '->Message: '+message.body);
+                api.sendMessage("Hú gì thế a. A Thành đang bận tí ạ. Em được trả lời tự động", message.threadID);
+                return;
+            }
             //rep riêng theo id
             else if (message.senderID === "100012583503752" && !answeredThreads.hasOwnProperty(message.threadID)) {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
@@ -217,21 +223,41 @@ login(
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
-                    request(botkey + encodeURI(message.body),
+                    var reactions = ['\uD83D\uDE0D', '\uD83D\uDE06', '\uD83D\uDE2E', '\uD83D\uDE22', '\uD83D\uDE20', '\uD83D\uDC4D', '\uD83D\uDC4E']
+                    // api.setMessageReaction(':love:',message.threadID)
+                    api.sendTypingIndicator(message.threadID)
+                    // api.setOptions()
+                    request(botkey +
+                        encodeURI(message.body),
                         function (error, response, body) {
-                            console.log(body)dasdsa
                             if (error) api.sendMessage("Chatbot không trả lời được :)", message.threadID);
-                            if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("respSentence") < 0)
-                                api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID
-                                );
+                            // if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("respSentence") < 0) {
+                            if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("509") > 0) {
+                                var listRandomQuestion = [
+                                    'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
+                                    `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
+                        \n ----
+                        \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
+                                    'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
+                                    'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
+                                    'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
+                                ]
+                                Array.prototype.rand = function () {
+                                    return this[Math.floor(Math.random() * this.length)];
+                                }
+                                api.sendMessage(listRandomQuestion.rand())
+                                api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID);
+                                return;
+                            }
                             text = JSON.parse(body);
+                            console.log('noi dung')
                             console.log(text)
-                            if (text.status == "200") {
-                                SimsimiAnswered = text.respSentence;
-                                if (message.body === text.respSentence) {
+                            if (text.status == "200" || text.result === 100) {
+                                SimsimiAnswered = text.response;
+                                if (message.body === text.response) {
                                     return;
                                 } else
-                                    SimsimiAnswered = text.respSentence;
+                                    SimsimiAnswered = text.response;
                                 api.sendMessage(SimsimiAnswered, message.threadID);
                                 api.markAsRead(message.threadID);
                                 console.log("Answered:" + SimsimiAnswered);
@@ -266,12 +292,14 @@ login(
     });
 
 
+
 function xuLyPhone(str) {
-    // var str = message.body;
     var path2 = /(09|01[2|6|8|9]|03)+([0-9]{8,9})\b/g;
     var result = str.match(path2);
     return result
 }
+
+
 /// OK save
 
 /*
