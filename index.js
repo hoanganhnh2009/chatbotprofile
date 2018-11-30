@@ -21,7 +21,7 @@ app.get('/spam', function (req, res) {
 
 function getListFriends(){
     var token = ''
-    
+
 }
 login(
     // {
@@ -100,7 +100,7 @@ login(
             // }
             else if (message.body) {
                 console.log(message)
-                answeredThreads[message.threadID] = false;
+                answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
                     var listRandomQuestion = [
