@@ -5,15 +5,7 @@ const fs = require("fs");
 
 var except = {};
 var answeredThreads = {};
-// app api
-var express = require('express')
-var app = express()
-app.set('port', (process.env.PORT || 5000))
 
-// Index route
-app.get('/send', function (req, res) {
-    res.send('Hello , I am a chat bot')
-})
 login(
     // {
     //     email: "EMAIL_FB",
