@@ -115,8 +115,13 @@ login(
                         , message.threadID);
                     return;
                 }
-                if (message.body.includes('ngủ')) {
+                else if (message.body.includes('ngủ')) {
                     api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé nhé!!!! (Tớ là bot của Thành đẹp trai)`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('mệt')) {
+                    api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
