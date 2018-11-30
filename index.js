@@ -110,8 +110,13 @@ login(
             // tra loi neu than inbox
             if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
                 console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
-                if (message.body.include('ăn')) {
-                    api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot)`
+                if (message.body.include('ăn','cơm')) {
+                    api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot của Thành Đại ka)`
+                        , message.threadID);
+                    return;
+                }
+                if (message.body.include('ngủ')) {
+                    api.sendMessage(`Chúc cậu ngủ ngon nhé (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
