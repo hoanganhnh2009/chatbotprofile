@@ -213,7 +213,7 @@ login(
             //     return;
             // }
             else if (message.body) {
-                console.log(message)
+                // console.log(message)
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
