@@ -97,7 +97,7 @@ login(
                 console.log(message)
                 answeredThreads[message.threadID] = false;
                 const isPhone = xuLyPhone(message.body)
-                if (!isPhone.length) {
+                if (!isPhone) {
                     var listRandomQuestion = [
                         'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
                         `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
