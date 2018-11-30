@@ -130,7 +130,7 @@ login(
                         , message.threadID);
                     return;
                 }
-                else if (message.body.includes('hehe', 'haha','Haha')) {
+                else if (message.body.includes('hehe', 'haha','Haha','Hehe')) {
                     api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
