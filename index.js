@@ -5,6 +5,12 @@ const fs = require("fs");
 
 var except = {};
 var answeredThreads = {};
+console.log('Server running at http://127.0.0.1:5000/');
+var express = require('express');
+var app = express();
+app.listen(process.env.PORT || 5000, function () {
+    console.log('Node server running @ http://localhost:3000')
+});
 
 login(
     // {
