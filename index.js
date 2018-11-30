@@ -130,8 +130,13 @@ login(
                         , message.threadID);
                     return;
                 }
-                else if (message.body.includes('hehe', 'haha','Haha','Hehe')) {
+                else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
                     api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 (Tớ là bot của Thành đẹp trai)`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('Tắm', 'tắm')) {
+                    api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) (Tớ là bot của Thành đẹp trai)`
                         , message.threadID);
                     return;
                 }
@@ -169,7 +174,12 @@ login(
                     , message.threadID);
                 return;
             }
-            else if (message.body.includes('hehe', 'haha','hihi','kaka')) {
+            else if (message.body.includes('Tắm', 'tắm')) {
+                api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) (Tớ là bot của Thành đẹp trai)`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
                 api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 (Tớ là bot của Thành đẹp trai)`
                     , message.threadID);
                 return;
