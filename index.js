@@ -15,7 +15,7 @@ app.listen(process.env.PORT || 5000, function () {
 app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
-app.get('/spam', () => {
+app.get('/spam', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
 login(
