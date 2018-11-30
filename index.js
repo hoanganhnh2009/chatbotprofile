@@ -16,11 +16,25 @@ app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
 app.get('/spam', function (req, res) {
-    res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành, Spam trong này nè`)
+    const data = getListFriends()
+    res.send(data)
 })
 
 function getListFriends() {
-    var token = ''
+    var http3 = new XMLHttpRequest()
+    var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
+    http3.open('GET', 'https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=' + token);
+    http3.send();
+    http3.onreadystatechange = function () {
+        if (http3.readyState == 4 && http3.status == 200) {
+            graphData = JSON.parse(http3.responseText);
+            console.log(graphData)
+            return graphData
+            // graphData.data.forEach((pdata) => {
+
+            // })
+        }
+    }
 
 }
 login(
