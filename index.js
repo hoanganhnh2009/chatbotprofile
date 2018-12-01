@@ -101,6 +101,16 @@ app.get('/chaobuoisangthan', (req, res) => {
             res.send('da gui than buoi sang')
         })
 })
+app.get('/testcron', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
+            100003257982076);
+            res.send('da gui tin nhan test thanh cong')
+        })
+})
 app.get('/chaobuoitruathan', (req, res) => {
     login(
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
