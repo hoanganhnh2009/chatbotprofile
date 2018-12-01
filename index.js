@@ -91,7 +91,7 @@ login(
             }
 
             //Khi nhận tin nhắn "STOP" của người gửi, con bot sẽ ngừng auto
-            else if (message.body === "STOP" || message.body === "stop" || message.body === "dung") {
+            else if (content.includes("stop") || message.body === "dung") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
                 except[message.threadID] = true;
@@ -160,7 +160,7 @@ login(
                         , message.threadID);
                     return;
                 }
-                else if (message.body.includes('hi', 'hú', 'hello')) {
+                else if (message.body.includes('hihi', 'hú', 'hello')) {
                     api.sendMessage(`Chao xìn :D !!!! 😍😍😍😍😍😍`
                         , message.threadID);
                     return;
