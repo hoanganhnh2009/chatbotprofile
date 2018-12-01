@@ -14,7 +14,9 @@
 
 var request = require("request");
 // var botkey = "http://www.simsimi.com/getRealtimeReq?uuid=4c6867ab-0f03-4921-8553-30214e4be8fb&lc=vn&ft=0&reqText=";
-var botkey = "http://sandbox.api.simsimi.com/request.p?key=0ede1528-23ee-438a-b348-5494dcb1f227&lc=vn&ft=1.0&text=";
+var botkey = "http://sandbox.api.simsimi.com/request.p?key=4c6867ab-0f03-4921-8553-30214e4be8fb&lc=vn&ft=1.0&text=";
+//thanhnh25091995@gmail.com 0ede1528-23ee-438a-b348-5494dcb1f227
+//thanhnh2509@gmail.com 4c6867ab-0f03-4921-8553-30214e4be8fb
 var login = require("facebook-chat-api");
 const fs = require("fs");
 
@@ -85,7 +87,7 @@ login(
                 except[message.threadID] = true;
                 return;
             }
-            if (today.getDay() == 6 && (h >= 0 && h <= 22) && !answeredThreads.hasOwnProperty(message.threadID)) {
+            if (today.getDay() == 6 && (h >= 0 && h <= 23) && !answeredThreads.hasOwnProperty(message.threadID)) {
                 api.getUserInfo(message.senderID, function (err, ret) {
                     console.log(ret)
                     for (var prop in ret) {
@@ -97,7 +99,7 @@ login(
                     }
                 }); return;
             }
-            if (today.getDay() == 0 && (h >= 0 && h <= 22) && !answeredThreads.hasOwnProperty(message.threadID)) {
+            if (today.getDay() == 0 && (h >= 0 && h <= 24) && !answeredThreads.hasOwnProperty(message.threadID)) {
                 api.getUserInfo(message.senderID, function (err, ret) {
                     // if (err) return console.error(err);
                     for (var prop in ret) {
@@ -140,7 +142,6 @@ login(
                 api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
                 return;
             }
-            // 100012583503752
             // tra loi neu than inbox
             if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
                 console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
@@ -257,7 +258,6 @@ login(
             //     return;
             // }
             else if (message.body) {
-                // console.log(message)
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
