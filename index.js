@@ -261,10 +261,7 @@ login(
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
                 if (!isPhone) {
-                    // var reactions = ['\uD83D\uDE0D', '\uD83D\uDE06', '\uD83D\uDE2E', '\uD83D\uDE22', '\uD83D\uDE20', '\uD83D\uDC4D', '\uD83D\uDC4E']
-                    // api.setMessageReaction(':love:',message.threadID)
                     api.sendTypingIndicator(message.threadID)
-                    // api.setOptions()
                     request(botkey +
                         encodeURI(message.body),
                         function (error, response, body) {
