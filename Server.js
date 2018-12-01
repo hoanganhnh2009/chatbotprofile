@@ -33,6 +33,7 @@ app.get('/spam', function (req, res) {
         res.send(JSON.parse(body))
     })
 })
+
 app.get('/send', (req, res) => {
     login(
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
@@ -42,6 +43,42 @@ app.get('/send', (req, res) => {
             res.send('da gui')
         })
 })
+// 6h30
+app.get('/chaobuoisang', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Đến giờ rồi, dậy đánh răng rửa mặt ăn sáng đê êm ơi.\n Ngủ lười quá rồi đấy \n  😎😎😎😎😎😎😎", 100009934114000);
+            res.send('da gui buoi sang')
+        })
+})
+
+app.get('/chaobuoitrua', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Đến giờ rồi em ăn uống gì chưa.\n Ăn hết không hay đổ thừa cho chó \n Rep anh đi xin đừng bỏ bỏ \n Anh chỉ hỏi chứ không phải tỏ tình đâu \n 😎😎😎😎😎😎😎",
+                // 100009934114000);
+                100003257982076);
+            res.send('da tin buoi trua')
+        })
+})
+
+app.get('/chaobuoitoi', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Khuya rồi em, nhắm mắt ngủ đi thôi!\nĐêm buông rơi sao sáng cả một trời\nAnh hái gửi cho em vào mơ mộng \nĐể giấc nồng không lạc lõng chơi vơi\n😎😎😎😎😎😎😎",
+                100009934114000);
+                // 100003257982076);
+            res.send('da tin buoi toi')
+        })
+})
+
+
 
 function getListFriends() {
     var http3 = new XMLHttpRequest()
