@@ -91,6 +91,12 @@ login(
             }
 
             //Khi nhận tin nhắn "STOP" của người gửi, con bot sẽ ngừng auto
+            else if (content.includes("start") || message.body === "batdau") {
+                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                api.sendMessage("Bật trả lời tự động thành công", message.threadID);
+                except[message.threadID] = false
+                return;
+            }
             else if (content.includes("stop") || message.body === "dung") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
