@@ -90,7 +90,27 @@ app.get('/chaobuoitoi', (req, res) => {
             res.send('da tin buoi toi')
         })
 })
-
+// #than
+app.get('/chaobuoisangthan', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
+            100012583503752);
+            res.send('da gui than buoi sang')
+        })
+})
+app.get('/chaobuoitruathan', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Trăng lên đỉnh núi trăng tà\nThân ăn canh thịt hay là canh rau\nTrăng lên đỉnh núi trăng mờ\Thân cho thành hỏi mấy giờ ăn trưa? 😘😘😘😘😘😘",
+            100012583503752);
+            res.send('da gui than buoi sang')
+        })
+})
 app.get('/spam', function (req, res) {
     var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
     request("https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=" + token, function (err, response, body) {
