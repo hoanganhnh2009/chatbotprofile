@@ -91,7 +91,7 @@ login(
             }
 
             //Khi nhận tin nhắn "STOP" của người gửi, con bot sẽ ngừng auto
-            else if (content.includes("start") || message.body === "batdau") {
+            else if (content.includes("start") || content === "batdau") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Bật trả lời tự động thành công", message.threadID);
                 except[message.threadID] = false
