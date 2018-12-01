@@ -41,6 +41,9 @@ app.listen(port, function () {
 app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
+app.get('/test', function (req, res) {
+    res.send(`Test url thôi nhé`)
+})
 app.get('/send', () => {
     login(
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
