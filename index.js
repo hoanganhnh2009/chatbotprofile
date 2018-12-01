@@ -47,6 +47,8 @@ app.get('/send', () => {
         function callback(err, api) {
             if (err) return console.error(err);
             api.sendMessage("Test đây là tin nhắn tự động :D :D :D :D :D", 100009934114000);
+            res.send('oke')
+
         })
 })
 // 6h30
@@ -88,11 +90,11 @@ app.get('/chaobuoitoi', (req, res) => {
 
 app.get('/spam', function (req, res) {
     var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
-    request("https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=" + token, function (err, res, body) {
+    request("https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=" + token, function (err, response, body) {
         //nếu có lỗi
         if (err)
             throw err;
-        console.log(res);
+        console.log(response);
         res.send(body)
     })
 })
