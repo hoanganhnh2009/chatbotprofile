@@ -49,14 +49,42 @@ app.get('/send', () => {
             api.sendMessage("Test đây là tin nhắn tự động :D :D :D :D :D", 100009934114000);
         })
 })
-app.get('/chaobuoisang', () => {
+// 6h30
+app.get('/chaobuoisang', (req, res) => {
     login(
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
             if (err) return console.error(err);
-            api.sendMessage("", 100009934114000);
+            api.sendMessage("Đến giờ rồi, dậy đánh răng rửa mặt ăn sáng đê êm ơi.\n Ngủ lười quá rồi đấy \n  😎😎😎😎😎😎😎",
+                100009934114000);
+            res.send('da gui buoi sang')
         })
 })
+// 11h20
+app.get('/chaobuoitrua', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Đến giờ rồi em ăn uống gì chưa.\n Ăn hết không hay đổ thừa cho chó \n Rep anh đi xin đừng bỏ bỏ \n Anh chỉ hỏi chứ không phải tỏ tình đâu \n 😎😎😎😎😎😎😎",
+                100009934114000);
+            // 100003257982076);
+            res.send('da tin buoi trua')
+        })
+})
+// 11h
+app.get('/chaobuoitoi', (req, res) => {
+    login(
+        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+        function callback(err, api) {
+            if (err) return console.error(err);
+            api.sendMessage("Khuya rồi em, nhắm mắt ngủ đi thôi!\nĐêm buông rơi sao sáng cả một trời\nAnh hái gửi cho em vào mơ mộng \nĐể giấc nồng không lạc lõng chơi vơi\n😎😎😎😎😎😎😎",
+                100009934114000);
+            // 100003257982076);
+            res.send('da tin buoi toi')
+        })
+})
+
 app.get('/spam', function (req, res) {
     var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
     request("https://graph.facebook.com/me/posts?fields=id&limit=9999&access_token=" + token, function (err, res, body) {
