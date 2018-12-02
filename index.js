@@ -40,6 +40,9 @@ app.listen(port, function () {
 app.get('/', function (req, res) {
     res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`)
 })
+app.get('/getdate', function (req, res) {
+    res.send(h + "-" + phut)
+})
 app.get('/test', function (req, res) {
     res.send(`Test url thôi nhé`)
 })
@@ -96,7 +99,7 @@ app.get('/chaobuoisangthan', (req, res) => {
         function callback(err, api) {
             if (err) return console.error(err);
             api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
-            100012583503752);
+                100012583503752);
             res.send('da gui than buoi sang')
         })
 })
@@ -106,7 +109,7 @@ app.get('/testcron', (req, res) => {
         function callback(err, api) {
             if (err) return console.error(err);
             api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
-            100003257982076);
+                100003257982076);
             res.send('da gui tin nhan test thanh cong')
         })
 })
@@ -116,7 +119,7 @@ app.get('/chaobuoitruathan', (req, res) => {
         function callback(err, api) {
             if (err) return console.error(err);
             api.sendMessage("Trăng lên đỉnh núi trăng tà\nThân ăn canh thịt hay là canh rau\nTrăng lên đỉnh núi trăng mờ\Thân cho thành hỏi mấy giờ ăn trưa? 😘😘😘😘😘😘",
-            100012583503752);
+                100012583503752);
             res.send('da gui than buoi sang')
         })
 })
