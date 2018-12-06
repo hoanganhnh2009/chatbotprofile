@@ -141,8 +141,8 @@ function getListFriends() {
 }
 login(
     // {
-    //     email: "EMAIL_FB",
-    //     password: "PWD_FB"
+    //     email: "hoanganhnh2009@gmail.com",
+    //     password: "12345aA@"
     // },
     { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
     function callback(err, api) {
