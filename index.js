@@ -44,7 +44,9 @@ app.get('/getdate', function (req, res) {
     res.send(h + "-" + phut)
 })
 app.get('/test', function (req, res) {
+    const a = "đasa"
     res.send(`Test url thôi nhé`)
+
 })
 app.get('/send', () => {
     login(
