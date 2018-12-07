@@ -13,10 +13,11 @@
 // Code: Nguyen Huu Thanh - thanhnh2509@gmail.com
 
 var request = require("request");
-var botkey = "http://sandbox.api.simsimi.com/request.p?key=0ede1528-23ee-438a-b348-5494dcb1f227&lc=vn&ft=1.0&text=";
+var botkey = "http://sandbox.api.simsimi.com/request.p?key=90b328e3-975b-4a80-b4a9-bac67928c563&lc=vn&ft=1.0&text=";
 //thanhnh25091995@gmail.com 0ede1528-23ee-438a-b348-5494dcb1f227
 //thanhnh2509@gmail.com 4c6867ab-0f03-4921-8553-30214e4be8fb
 // hoanganhnh2009@gmail.com 11a642eb-c7ba-4bfa-931f-cb85e46e6a90
+// nguyenviet..@gmail.com 90b328e3-975b-4a80-b4a9-bac67928c563
 
 var login = require("facebook-chat-api");
 const fs = require("fs");
@@ -110,8 +111,19 @@ app.get('/testcron', (req, res) => {
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
             if (err) return console.error(err);
-            api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
-                100003257982076);
+              Array.prototype.rand = function () {
+                                    return this[Math.floor(Math.random() * this.length)];
+                                }
+            const array = [
+                'Muộn rồi, ngủ thôi cậu ơi. Chúc cậu ngủ ngon và có những giấc mơ đẹp',
+'Ngủ ngon nhé cậu! 😍😍😍😍',
+'Ting ting. Bây giờ là 0h. Lên giường đắp chăn, bật quạt đi ngủ thôi :) 😋😋😋😋',
+'Good night 😍😍😍😍',
+'Đến giờ đi ngủ rồi, ngủ sớm mai còn đi làm nào :) Ngủ ngon nhé :D 😜😜😜😜'
+                ]
+            if (err) return console.error(err);
+            api.sendMessage(array.rand(),
+                100012583503752);
             res.send('da gui tin nhan test thanh cong')
         })
 })
@@ -141,8 +153,8 @@ function getListFriends() {
 }
 login(
     // {
-    //     email: "hoanganhnh2009@gmail.com",
-    //     password: "12345aA@"
+    //     email: "MAIL",
+    //     password: "PWD"
     // },
     { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
     function callback(err, api) {
@@ -403,15 +415,12 @@ function xuLyPhone(str) {
 /// OK save
 
 /*
-
 // thay đổi từ ngữ trả lời từ tin thứ 2 (phải có dòng answeredThreads[message.threadID] = true; ở tin thứ nhất)
 else if(answeredThreads.hasOwnProperty(message.threadID)){
     console.log("FormID: " + message.threadID + '->Message: '+message.body);
     api.sendMessage("Đây là tin nhắn hệ thống, đừng spam nữa nhé.\nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn", message.threadID);
     return;
 }
-
 Nếu muốn đánh dấu là đã đọc
     api.markAsRead(message.threadID);
-
 */
