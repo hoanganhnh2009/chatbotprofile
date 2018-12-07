@@ -111,8 +111,19 @@ app.get('/testcron', (req, res) => {
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
             if (err) return console.error(err);
-            api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
-                100003257982076);
+              Array.prototype.rand = function () {
+                                    return this[Math.floor(Math.random() * this.length)];
+                                }
+            const array = [
+                'Muộn rồi, ngủ thôi cậu ơi. Chúc cậu ngủ ngon và có những giấc mơ đẹp',
+'Ngủ ngon nhé cậu! 😍😍😍😍',
+'Ting ting. Bây giờ là 0h. Lên giường đắp chăn, bật quạt đi ngủ thôi :) 😋😋😋😋',
+'Good night 😍😍😍😍',
+'Đến giờ đi ngủ rồi, ngủ sớm mai còn đi làm nào :) Ngủ ngon nhé :D 😜😜😜😜'
+                ]
+            if (err) return console.error(err);
+            api.sendMessage(array.rand(),
+                100012583503752);
             res.send('da gui tin nhan test thanh cong')
         })
 })
