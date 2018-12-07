@@ -13,10 +13,11 @@
 // Code: Nguyen Huu Thanh - thanhnh2509@gmail.com
 
 var request = require("request");
-var botkey = "http://sandbox.api.simsimi.com/request.p?key=0ede1528-23ee-438a-b348-5494dcb1f227&lc=vn&ft=1.0&text=";
+var botkey = "http://sandbox.api.simsimi.com/request.p?key=90b328e3-975b-4a80-b4a9-bac67928c563&lc=vn&ft=1.0&text=";
 //thanhnh25091995@gmail.com 0ede1528-23ee-438a-b348-5494dcb1f227
 //thanhnh2509@gmail.com 4c6867ab-0f03-4921-8553-30214e4be8fb
 // hoanganhnh2009@gmail.com 11a642eb-c7ba-4bfa-931f-cb85e46e6a90
+// nguyenviet..@gmail.com 90b328e3-975b-4a80-b4a9-bac67928c563
 
 var login = require("facebook-chat-api");
 const fs = require("fs");
