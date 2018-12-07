@@ -291,8 +291,8 @@ login(
                     , message.threadID);
                 return;
             }
-            else if (message.body.includes('hi', 'hú', 'hello')) {
-                api.sendMessage(`Chao xìn :D !!!! `
+            else if (message.body.includes('hihi', 'hú', 'hello')) {
+                api.sendMessage(`Xin chào :D !!!! `
                     , message.threadID);
                 return;
             }
