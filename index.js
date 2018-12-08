@@ -166,7 +166,7 @@ login(
             // like cai da roi tinh tiep
             changeThreadEmoji(message.messageID, (loi, kq) => {
                 if (err) return;
-                console.log(kq)
+                console.log('da like')
             })
 
             // các ID facebook loại trừ, không dùng auto rep
@@ -191,7 +191,6 @@ login(
                 }
                 return;
             }
-            //Khi nhận tin nhắn "STOP" của người gửi, con bot sẽ ngừng auto
             else if (content.includes("start") || content === "batdau") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Bật trả lời tự động thành công", message.threadID);
@@ -235,7 +234,7 @@ login(
                     }
                 }); return;
             }
-            if ((h >= 1 && h <= 22) && !answeredThreads.hasOwnProperty(message.threadID)) {
+            if ((h >= 1 && h <= 23) && !answeredThreads.hasOwnProperty(message.threadID)) {
                 api.getUserInfo(message.senderID, function (err, ret) {
                     // if (err) return console.error(err);
                     for (var prop in ret) {
