@@ -13,12 +13,13 @@
 // Code: Nguyen Huu Thanh - thanhnh2509@gmail.com
 
 var request = require("request");
-var botkey = "http://sandbox.api.simsimi.com/request.p?key=90b328e3-975b-4a80-b4a9-bac67928c563&lc=vn&ft=1.0&text=";
-//thanhnh25091995@gmail.com 0ede1528-23ee-438a-b348-5494dcb1f227
-//thanhnh2509@gmail.com 4c6867ab-0f03-4921-8553-30214e4be8fb
-// hoanganhnh2009@gmail.com 11a642eb-c7ba-4bfa-931f-cb85e46e6a90
-// nguyenviet..@gmail.com 90b328e3-975b-4a80-b4a9-bac67928c563
-
+var botkey = "http://sandbox.api.simsimi.com/request.p?key=32eaa54a-bbe1-41dc-8d45-07dbe1005c64&lc=vn&ft=1.0&text=";
+//thanhnh25091995@gmail.com 0ede1528-23ee-438a-b348-5494dcb1f227 expired
+//thanhnh2509@gmail.com 4c6867ab-0f03-4921-8553-30214e4be8fb expired
+// hoanganhnh2009@gmail.com 11a642eb-c7ba-4bfa-931f-cb85e46e6a90 expired
+// nguyenviet..@gmail.com 90b328e3-975b-4a80-b4a9-bac67928c563 running
+// mkt122@gmai.com 32eaa54a-bbe1-41dc-8d45-07dbe1005c64
+var querystring = require('querystring');
 var login = require("facebook-chat-api");
 const fs = require("fs");
 
@@ -111,16 +112,16 @@ app.get('/testcron', (req, res) => {
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
             if (err) return console.error(err);
-              Array.prototype.rand = function () {
-                                    return this[Math.floor(Math.random() * this.length)];
-                                }
+            Array.prototype.rand = function () {
+                return this[Math.floor(Math.random() * this.length)];
+            }
             const array = [
                 'Muộn rồi, ngủ thôi cậu ơi. Chúc cậu ngủ ngon và có những giấc mơ đẹp',
-'Ngủ ngon nhé cậu! 😍😍😍😍',
-'Ting ting. Bây giờ là 0h. Lên giường đắp chăn, bật quạt đi ngủ thôi :) 😋😋😋😋',
-'Good night 😍😍😍😍',
-'Đến giờ đi ngủ rồi, ngủ sớm mai còn đi làm nào :) Ngủ ngon nhé :D 😜😜😜😜'
-                ]
+                'Ngủ ngon nhé cậu! 😍😍😍😍',
+                'Ting ting. Bây giờ là 0h. Lên giường đắp chăn, bật quạt đi ngủ thôi :) 😋😋😋😋',
+                'Good night 😍😍😍😍',
+                'Đến giờ đi ngủ rồi, ngủ sớm mai còn đi làm nào :) Ngủ ngon nhé :D 😜😜😜😜'
+            ]
             if (err) return console.error(err);
             api.sendMessage(array.rand(),
                 100012583503752);
@@ -134,7 +135,7 @@ app.get('/chaobuoitruathan', (req, res) => {
             if (err) return console.error(err);
             api.sendMessage("Trăng lên đỉnh núi trăng tà\nThân ăn canh thịt hay là canh rau\nTrăng lên đỉnh núi trăng mờ\Thân cho thành hỏi mấy giờ ăn trưa? 😘😘😘😘😘😘",
                 100012583503752);
-            res.send('da gui than buoi sang')
+            res.send('da gui than buoi trưa')
         })
 })
 app.get('/spam', function (req, res) {
@@ -148,9 +149,6 @@ app.get('/spam', function (req, res) {
     })
 })
 
-function getListFriends() {
-    return
-}
 login(
     // {
     //     email: "MAIL",
@@ -164,12 +162,35 @@ login(
             console.log(message.threadID);
             console.log(message)
             const content = message.body.toLowerCase()
+
+            // like cai da roi tinh tiep
+            changeThreadEmoji(message.messageID, (loi, kq) => {
+                if (err) return;
+                console.log(kq)
+            })
+
             // các ID facebook loại trừ, không dùng auto rep
             if (except.hasOwnProperty(message.threadID) || message.senderID === "100004157195813") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 return;
             }
-
+            else if (message.senderID === "100003257982076") {
+                // Tài khoản clone để điều khiển bot
+                if (content.includes("start")) {
+                    const threadID = content.split("|")[1]
+                    console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                    api.sendMessage("Bật trả lời tự động thành công cho id: "+threadID, message.threadID);
+                    except[threadID] = true;
+                }
+                if (content.includes("stop")) {
+                    const threadID = content.split("|")[1]
+                    console.log(threadID)
+                    console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                    api.sendMessage("Tắt trả lời tự động thành công cho id: "+threadID, message.threadID);
+                    except[threadID] = false;
+                }
+                return;
+            }
             //Khi nhận tin nhắn "STOP" của người gửi, con bot sẽ ngừng auto
             else if (content.includes("start") || content === "batdau") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
@@ -177,6 +198,13 @@ login(
                 except[message.threadID] = false
                 return;
             }
+            // else if (except.hasOwnProperty(message.threadID) || message.senderID === "100003257982076") {
+            //     // bật tắt cho từng người 
+            //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+            //     api.sendMessage("Ngừng trả lời tự động thành công", '');
+            //     // except[message.threadID] = true;
+            //     return;
+            // }
             else if (content.includes("stop") || message.body === "dung") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
@@ -240,6 +268,7 @@ login(
             }
             // tra loi neu than inbox
             if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
+                const body = message.body.toLowerCase()
                 console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
                 if (message.body.includes('ăn', 'cơm')) {
                     api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot của Thành Đại ka)`
@@ -282,7 +311,6 @@ login(
                     return;
                 }
                 api.sendMessage(`Chào Thân :) \nHiện tại đại ka Tớ đang ngủ \n Đại ka tớ sẽ trả lời cậu khi đọc được tin nhắn này\n Chúc cậu một ngày mới tốt vui vẻ  😍😍😍😍😍😍 \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
-                // api.sendMessage(`Chào Thân :) \nHiện tại Tớ đang không online \nTớ sẽ trả lời cậu khi đọc được tin nhắn này \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                 return;
             }
             // chung
@@ -363,20 +391,20 @@ login(
                         function (error, response, body) {
                             if (error) api.sendMessage("Chatbot không trả lời được :)", message.threadID);
                             if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("509") > 0 || body.indexOf('401') > 0) {
-                                var listRandomQuestion = [
-                                    'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
-                                    `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
-                        \n ----
-                        \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
-                                    'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
-                                    'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
-                                    'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
-                                ]
-                                Array.prototype.rand = function () {
-                                    return this[Math.floor(Math.random() * this.length)];
-                                }
-                                api.sendMessage(listRandomQuestion.rand())
-                                api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID);
+                        //         var listRandomQuestion = [
+                        //             'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
+                        //             `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
+                        // \n ----
+                        // \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
+                        //             'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
+                        //             'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
+                        //             'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
+                        //         ]
+                        //         Array.prototype.rand = function () {
+                        //             return this[Math.floor(Math.random() * this.length)];
+                        //         }
+                                // api.sendMessage(listRandomQuestion.rand())
+                                // api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID);
                                 return;
                             }
                             text = JSON.parse(body);
@@ -403,6 +431,64 @@ login(
         });
     });
 
+// changeThreadEmoji
+function changeThreadEmoji(message_id, cb) {
+    const cookie = 'sb=t32OWzL0fwfaj6ElosQZ83wt; datr=t32OW1Ruw1fwXzrPm6Reiwsd; dpr=2; m_pixel_ratio=2; ; c_user=100004966144394; xs=35%3AM6YqxkYhnQ2Hng%3A2%3A1544241245%3A13185%3A6238; pl=n; spin=r.4615159_b.trunk_t.1544241246_s.1_v.2_; x-referer=eyJyIjoiL21lc3NhZ2VzL3RocmVhZC8xMDAwMDI4MjYzOTcyMTUvIiwiaCI6Ii9tZXNzYWdlcy90aHJlYWQvMTAwMDAyODI2Mzk3MjE1LyIsInMiOiJtIn0%3D; fr=0EcLrb28aceQK3p2i.AWWKMcxUodIxbxItroD-XQEAdZlUkhieJLoh4gjQyarAzRBA.Bbjlby.cU.FwJ.0.0.BcC1yE.AWXEBfdE; act=1544249258182%2F6; wd=1440x398; presence=EDvF3EtimeF1544249740EuserFA21B04966144394A2EstateFDatF1544249673852Et3F_5bDiFA2thread_3a2026379260761810A2ErF1EoF1EfF2C_5dElm3FnullEutc3F1544249729245G544249740600CEchFDp_5f1B04966144394F8CC'
+    var appstate = require('./appstate.json');
+    // customize cookie
+    // console.log(config.firstName + ' ' + config.lastName);
+    Array.prototype.rand = function () {
+        return this[Math.floor(Math.random() * this.length)];
+    }
+    const actor_id = "100004966144394"
+    let reaction_types = ["😆", "😠", "😢", "😮", "😍", "👍", "👎"]
+    // const message_id = "mid.$cAAAAB-rQhfZtvfeQClnjLJFrGefK"
+    const reaction_type = reaction_types.rand()
+    let variables = JSON.stringify({
+        "data": {
+            client_mutation_id: "2",
+            actor_id,
+            action: "ADD_REACTION", //REMOVE_REACTION
+            message_id,
+            reaction: reaction_type
+        }
+    })
+    // variables = encodeURI(variables)
+    // res.send(variables); 
+    const form_params = {
+        doc_id: 1491398900900362,
+        variables: variables,
+        dpr: 2
+    }
+    let result = querystring.stringify(form_params)
+    const uri = "https://www.facebook.com/webgraphql/mutation/?" + result
+    let form = {
+        fb_dtsg: 'AQEULyNrFRhE:AQEtmzyVWnnJ'
+    }
+    const formData = querystring.stringify(form);
+
+    var contentLength = formData.length;
+    const headers = {
+        'Content-Length': contentLength,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        cookie,
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
+    }
+    request({
+        headers,
+        uri,
+        body: formData,
+        method: 'POST'
+    }, function (error, response, body) {
+        if (error) {
+            cb(error)
+        } else {
+            console.log('Đã reaction tự động thành công toi ' + message_id)
+            cb(null, response)
+        }
+    })
+
+}
 
 
 function xuLyPhone(str) {
