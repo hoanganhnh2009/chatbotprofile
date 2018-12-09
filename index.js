@@ -133,7 +133,7 @@ app.get('/chaobuoitruathan', (req, res) => {
         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
         function callback(err, api) {
             if (err) return console.error(err);
-            api.sendMessage("Trăng lên đỉnh núi trăng tà\nThân ăn canh thịt hay là canh rau\nTrăng lên đỉnh núi trăng mờ\Thân cho thành hỏi mấy giờ ăn trưa? 😘😘😘😘😘😘",
+            api.sendMessage("\nTrăng lên đỉnh núi rồi kìa\nĂn cơm bằng đũa hay thìa vậy Thân?:v 😘😘😘😘😘😘",
                 100012583503752);
             res.send('da gui than buoi trưa')
         })
