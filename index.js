@@ -316,18 +316,6 @@ login(
                             function (error, response, body) {
                                 if (error) api.sendMessage("Chatbot không trả lời được :)", message.threadID);
                                 if (body.indexOf("502 Bad Gateway") > 0 || body.indexOf("509") > 0 || body.indexOf('401') > 0) {
-                                    //         var listRandomQuestion = [
-                                    //             'Xin chào, hiện tại tôi không online, online tôi sẽ reply lại',
-                                    //             `Chào bạn, hiện tại mình Không online, mình sẽ trả lời bạn ngay khi online, hoặc gọi cho mình theo số 0982112395 
-                                    // \n ----
-                                    // \n Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai`,
-                                    //             'Hi, Tôi đang không online, bạn để lại tin nhắn nhé, lúc nào online tôi sẽ trả lời',
-                                    //             'Hello, Hiện tại mình không online, nhưng mình có thể giúp gì cho bạn',
-                                    //             'Chào bạn, mình đang bận ^^~ sẽ trả lời bạn ngay khi đọc được tin nhắn nhé. Vui lòng không nhắn thêm ^^'
-                                    //         ]
-                                    //         Array.prototype.rand = function () {
-                                    //             return this[Math.floor(Math.random() * this.length)];
-                                    //         }
                                     // api.sendMessage(listRandomQuestion.rand())
                                     // api.sendMessage("\n \n --------\nTin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện." + message.body, message.threadID);
                                     return;
