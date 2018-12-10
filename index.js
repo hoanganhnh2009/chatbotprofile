@@ -164,6 +164,8 @@ login(
         if (err) return console.error(err);
         // fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
         api.listen(function callback(err, message) {
+            console.log('message')
+            console.log(message)
             if (message.threadID) {
                 console.log(message.threadID);
                 console.log(message)
@@ -178,22 +180,6 @@ login(
                 // các ID facebook loại trừ, không dùng auto rep
                 if (except.hasOwnProperty(message.threadID) || message.senderID === "100004157195813") {
                     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                    return;
-                }
-                else if (message.senderID === "1000032579820761") {
-                    if (content.includes("stop")) {
-                        const threadID = content.split("|")[1]
-                        console.log(threadID)
-                        console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                        api.sendMessage("Tắt trả lời tự động thành công cho id: " + threadID, message.threadID);
-                        except[threadID] = false;
-                    }
-                    return;
-                }
-                else if (content.includes("start") || content === "batdau") {
-                    console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                    api.sendMessage("Bật trả lời tự động thành công", message.threadID);
-                    except[message.threadID] = false
                     return;
                 }
                 else if (content.includes("stop") || message.body === "dung") {
