@@ -149,6 +149,101 @@ app.get('/spam', function (req, res) {
     })
 })
 
+// comment
+app.get('/cookie', function (req, res) {
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
+    // c_user=100004966144394;xs=31:6buTziuxWwYKEw:2:1544417391:13185:6238;fr=14E6RCpLCQU6T4TIi.AWXBEfUzW-8EqlCoedKRdF6iuF0.BcDfBv..AAA.0.0.BcDfBv.AWWzBUwr;datr=b_ANXLVAKFzKiP6DXzt6X33P
+    var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
+    res.send(cookie)
+})
+// update dtsg when 12 hour
+app.get('/dtsg', function (req, res) {
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
+    var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
+    const headers = {
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        cookie,
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
+    }
+    request({
+        headers: headers,
+        uri: 'https://m.facebook.com',
+        // body: formData,
+        method: 'GET'
+    }, function (error2, response2, body2) {
+        if (error2) {
+            console.log(error2)
+            res.send(error2)
+        } else {
+
+            re = "/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \\/>/"
+            let result = body2.match(/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \/>/);
+            const dtsg = result[1]
+            // da co dtsg :D
+            var obj;
+            fs.readFile('./app.json', 'utf8', function (err, data) {
+                if (err) throw err;
+                data = JSON.parse(data);
+                data[1].value = dtsg
+                // let data = JSON.stringify(student);
+                fs.writeFileSync('./app.json', JSON.stringify(data));
+                res.send(data)
+            });
+            // console.log(result)
+            // res.send(dtsg)
+        }
+    })
+})
+function reaction(data, cb) {
+    const fb_dtsg = 'AQEy55TVSfEQ:AQGFTPT83D4u'
+    const cookie = 'sb=t32OWzL0fwfaj6ElosQZ83wt; datr=t32OW1Ruw1fwXzrPm6Reiwsd; dpr=2; locale=vi_VN; c_user=100004966144394; xs=42%3AHXLQHCfQdazmHg%3A2%3A1544337698%3A13185%3A6238; pl=n; spin=r.4617230_b.trunk_t.1544337699_s.1_v.2_; fr=0EcLrb28aceQK3p2i.AWWvOlhfK0xzZ3Un-9YN_NeUSjI.Bbjlby.cU.FwL.0.0.BcDTpC.AWWKtkYn; m_pixel_ratio=2; wd=1440x714; x-referer=eyJyIjoiL3N0b3J5LnBocD9zdG9yeV9mYmlkPTEwNzgwODExNDU3MDA3NDcmaWQ9MTAwMDA0OTY2MTQ0Mzk0JmZzPTEmZm9jdXNfY29tcG9zZXI9MCIsImgiOiIvc3RvcnkucGhwP3N0b3J5X2ZiaWQ9MTA3ODA4MTE0NTcwMDc0NyZpZD0xMDAwMDQ5NjYxNDQzOTQmZnM9MSZmb2N1c19jb21wb3Nlcj0wIiwicyI6Im0ifQ%3D%3D; act=1544371921469%2F52; presence=EDvF3EtimeF1544371984EuserFA21B04966144394A2EstateFDsb2F1544371539998EatF1544371587800Et3F_5bDiFA2user_3a1B03899463346A2EoF30EfF32CAcDiFA2user_3a1B12583503752A2ErF1EoF31EfF34C_5dElm3FA2user_3a1B12583503752A2Eutc3F1544371921364G544371984677CEchFDp_5f1B04966144394F75CC'
+    var url = `https://m.facebook.com/a/comment.php?`
+    let { parent_comment_id, parent_redirect_comment_token, reaction_comment_id, ft_ent_identifier } = data
+    Array.prototype.rand = function () {
+        return this[Math.floor(Math.random() * this.length)];
+    }
+
+    let form = {
+        m_sess: null,
+        fb_dtsg,
+        // hiden wil not show reponse:
+        // __ajax__: 'AYmeq9yftebnDNi6I4NJVqi6_TY80LoZEdqb8MJBOy_j7evDeTPhcR--wC9V7i8yzfwbJq-JsXaCz6vzhwJUTVCqG7Gs7CYX1a13CYB32laEJQ',
+    }
+    const formData = querystring.stringify(form);
+
+    const headers = {
+        'Content-Length': contentLength,
+        'Content-Type': 'application/x-www-form-urlencoded',
+        cookie,
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
+    }
+    var contentLength = formData.length;
+    var likes = [1, 2, 3, 4, 7, 8]
+    const form_params = {
+        parent_redirect_comment_token,
+        reaction_comment_id,
+        viewer_reaction: 2,
+        // angry:8 like:1 love:2 haha:4 wow:3 sad:7
+        snowflake: null,
+        ft_ent_identifier,
+    }
+    console.log(form_params)
+    let result = querystring.stringify(form_params)
+    request({
+        headers: headers,
+        uri: url + result,
+        body: formData,
+        method: 'POST'
+    }, function (error, response, body) {
+        if (error) {
+            console.log('loi')
+            cb(error)
+        } else {
+            console.log('like thanh cong')
+            cb(null, body)
+        }
+    })
+}
 login(
     // {
     //     email: "MAIL",
@@ -159,6 +254,31 @@ login(
         if (err) return console.error(err);
         // fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
         api.listen(function callback(err, message) {
+            if (message.type && message.type === "m_notification") {
+                console.log(message)
+                const { data } = message
+                const { content_id, href, type } = data
+                if (type === "feed_comment") {
+                    let parent_comment_id = href.match(/reply_comment_id=([0-9]+)&/) ? href.match(/reply_comment_id=([0-9]+)&/)[1] : null
+                    let comment_id = href.match(/comment_id=([0-9]+)&/) ? href.match(/comment_id=([0-9]+)&/)[1] : null
+                    let ft_ent_identifier = href.match(/posts\/([0-9]+)?/) ? href.match(/posts\/([0-9]+)?/)[1] : null
+                    let story_fbid = "" 
+                    var bot_id = parent_comment_id || comment_id
+                    let obj = {
+                        ft_ent_identifier: ft_ent_identifier || story_fbid,
+                        parent_comment_id: comment_id,
+                        parent_redirect_comment_token: (ft_ent_identifier || story_fbid) + "_" + content_id,
+                        reaction_comment_id: parent_comment_id ? parent_comment_id : comment_id,
+                        bot_id: ft_ent_identifier + "_" + bot_id,
+                    }
+                    console.log('result')
+                    console.log(obj)
+                    reaction(obj, (loi, kq) => {
+                        console.log('da like binh luan ' + obj.parent_redirect_comment_token)
+                        return;
+                    })
+                }
+            }
             console.log(message.threadID);
             console.log(message)
             const content = message.body ? message.body.toLowerCase() : null
@@ -265,7 +385,7 @@ login(
                 api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
                 return;
             }
-            
+
             else if (message.body) {
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
