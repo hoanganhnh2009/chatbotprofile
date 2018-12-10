@@ -167,16 +167,12 @@ login(
             console.log('message')
             console.log(message)
             if (message && message.threadID) {
+                changeThreadEmoji(message.messageID, (loi, kq) => {
+                    if (err) return;
+                    console.log('da like')
+                })
                 if (message.body) {
                     console.log(message.threadID);
-                    // const content = message.body ? message.body.toLowerCase() : null
-
-                    // like cai da roi tinh tiep
-                    changeThreadEmoji(message.messageID, (loi, kq) => {
-                        if (err) return;
-                        console.log('da like')
-                    })
-
                     // các ID facebook loại trừ, không dùng auto rep
                     if (except.hasOwnProperty(message.threadID) || message.senderID === "100004157195813") {
                         console.log("FormID: " + message.threadID + '->Message: ' + message.body);
@@ -337,7 +333,6 @@ login(
                                     return;
                                 }
                                 text = JSON.parse(body);
-                                console.log('noi dung')
                                 console.log(text)
                                 if (text.status == "200" || text.result === 100) {
                                     SimsimiAnswered = text.response;
