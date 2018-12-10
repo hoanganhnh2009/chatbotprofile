@@ -166,7 +166,7 @@ login(
         api.listen(function callback(err, message) {
             console.log('message')
             console.log(message)
-            if (message.threadID) {
+            if (message&&message.threadID) {
                 console.log(message.threadID);
                 console.log(message)
                 const content = message.body ? message.body.toLowerCase() : null
