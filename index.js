@@ -168,7 +168,7 @@ login(
             console.log(message)
             if (message && message.threadID) {
                 console.log(message.threadID);
-                const content = message.body ? message.body.toLowerCase() : null
+                // const content = message.body ? message.body.toLowerCase() : null
 
                 // like cai da roi tinh tiep
                 changeThreadEmoji(message.messageID, (loi, kq) => {
@@ -181,7 +181,7 @@ login(
                     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                     return;
                 }
-                else if (message && (content.includes("stop") || message.body === "dung")) {
+                else if (message && (message.body.includes("stop") || message.body === "dung")) {
                     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                     api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
                     except[message.threadID] = true;
@@ -224,7 +224,7 @@ login(
                     }); return;
                 }
                 // Tắt hoàn toàn con bot này luôn (không auto rep cho ai nữa)
-                else if (content === "stopall") {
+                else if ( message.body === "stopall") {
                     api.sendMessage(";) Ngừng auto chat thành công.", message.threadID);
                     api.markAsRead(message.threadID);
                     return api.logout(err);
@@ -240,53 +240,6 @@ login(
                     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                     api.sendMessage("Xin mời click : https://www.facebook.com/huu.thanh.2509 để ghé thăm tường của tôi", message.threadID);
                     api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
-                    return;
-                }
-                // tra loi neu than inbox
-                if (except.hasOwnProperty(message.threadID) && message.senderID === "100012583503752") {
-                    const body = message.body.toLowerCase()
-                    console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
-                    if (message.body.includes('ăn', 'cơm')) {
-                        api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot của Thành Đại ka)`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('hihi', 'hú', 'hello')) {
-                        api.sendMessage(`Chao xìn :D !!!! 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('ngủ', 'g9', 'night')) {
-                        api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('mệt')) {
-                        api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  :( ) 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
-                        api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('Tắm', 'tắm')) {
-                        api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('huhu', 'hic')) {
-                        api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    else if (message.body.includes('đi chơi')) {
-                        api.sendMessage(`Không ở nhà thôi, Thân đi chơi k? :D 😍😍😍😍😍😍`
-                            , message.threadID);
-                        return;
-                    }
-                    api.sendMessage(`Chào Thân :) \nHiện tại đại ka Tớ đang ngủ \n Đại ka tớ sẽ trả lời cậu khi đọc được tin nhắn này\n Chúc cậu một ngày mới tốt vui vẻ  😍😍😍😍😍😍 \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
                     return;
                 }
                 // chung
