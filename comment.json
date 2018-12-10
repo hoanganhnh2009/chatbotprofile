@@ -71,4 +71,4 @@ info "notifications_sync"
 info "inbox"
 info listen Got answer in 545
 info "deltaflow"
-info "delta" if (v.delta.class == "NewMessage") { //line: 256
+info "delta" if (v.delta.class == "NewMessage") { //line: 256 func: resolveAttachmentUrl
