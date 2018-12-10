@@ -149,101 +149,6 @@ app.get('/spam', function (req, res) {
     })
 })
 
-// comment
-app.get('/cookie', function (req, res) {
-    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
-    // c_user=100004966144394;xs=31:6buTziuxWwYKEw:2:1544417391:13185:6238;fr=14E6RCpLCQU6T4TIi.AWXBEfUzW-8EqlCoedKRdF6iuF0.BcDfBv..AAA.0.0.BcDfBv.AWWzBUwr;datr=b_ANXLVAKFzKiP6DXzt6X33P
-    var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
-    res.send(cookie)
-})
-// update dtsg when 12 hour
-app.get('/dtsg', function (req, res) {
-    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
-    var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
-    const headers = {
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-        cookie,
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
-    }
-    request({
-        headers: headers,
-        uri: 'https://m.facebook.com',
-        // body: formData,
-        method: 'GET'
-    }, function (error2, response2, body2) {
-        if (error2) {
-            console.log(error2)
-            res.send(error2)
-        } else {
-
-            re = "/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \\/>/"
-            let result = body2.match(/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \/>/);
-            const dtsg = result[1]
-            // da co dtsg :D
-            var obj;
-            fs.readFile('./app.json', 'utf8', function (err, data) {
-                if (err) throw err;
-                data = JSON.parse(data);
-                data[1].value = dtsg
-                // let data = JSON.stringify(student);
-                fs.writeFileSync('./app.json', JSON.stringify(data));
-                res.send(data)
-            });
-            // console.log(result)
-            // res.send(dtsg)
-        }
-    })
-})
-function reaction(data, cb) {
-    const fb_dtsg = 'AQEy55TVSfEQ:AQGFTPT83D4u'
-    const cookie = 'sb=t32OWzL0fwfaj6ElosQZ83wt; datr=t32OW1Ruw1fwXzrPm6Reiwsd; dpr=2; locale=vi_VN; c_user=100004966144394; xs=42%3AHXLQHCfQdazmHg%3A2%3A1544337698%3A13185%3A6238; pl=n; spin=r.4617230_b.trunk_t.1544337699_s.1_v.2_; fr=0EcLrb28aceQK3p2i.AWWvOlhfK0xzZ3Un-9YN_NeUSjI.Bbjlby.cU.FwL.0.0.BcDTpC.AWWKtkYn; m_pixel_ratio=2; wd=1440x714; x-referer=eyJyIjoiL3N0b3J5LnBocD9zdG9yeV9mYmlkPTEwNzgwODExNDU3MDA3NDcmaWQ9MTAwMDA0OTY2MTQ0Mzk0JmZzPTEmZm9jdXNfY29tcG9zZXI9MCIsImgiOiIvc3RvcnkucGhwP3N0b3J5X2ZiaWQ9MTA3ODA4MTE0NTcwMDc0NyZpZD0xMDAwMDQ5NjYxNDQzOTQmZnM9MSZmb2N1c19jb21wb3Nlcj0wIiwicyI6Im0ifQ%3D%3D; act=1544371921469%2F52; presence=EDvF3EtimeF1544371984EuserFA21B04966144394A2EstateFDsb2F1544371539998EatF1544371587800Et3F_5bDiFA2user_3a1B03899463346A2EoF30EfF32CAcDiFA2user_3a1B12583503752A2ErF1EoF31EfF34C_5dElm3FA2user_3a1B12583503752A2Eutc3F1544371921364G544371984677CEchFDp_5f1B04966144394F75CC'
-    var url = `https://m.facebook.com/a/comment.php?`
-    let { parent_comment_id, parent_redirect_comment_token, reaction_comment_id, ft_ent_identifier } = data
-    Array.prototype.rand = function () {
-        return this[Math.floor(Math.random() * this.length)];
-    }
-
-    let form = {
-        m_sess: null,
-        fb_dtsg,
-        // hiden wil not show reponse:
-        // __ajax__: 'AYmeq9yftebnDNi6I4NJVqi6_TY80LoZEdqb8MJBOy_j7evDeTPhcR--wC9V7i8yzfwbJq-JsXaCz6vzhwJUTVCqG7Gs7CYX1a13CYB32laEJQ',
-    }
-    const formData = querystring.stringify(form);
-
-    const headers = {
-        'Content-Length': contentLength,
-        'Content-Type': 'application/x-www-form-urlencoded',
-        cookie,
-        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
-    }
-    var contentLength = formData.length;
-    var likes = [1, 2, 3, 4, 7, 8]
-    const form_params = {
-        parent_redirect_comment_token,
-        reaction_comment_id,
-        viewer_reaction: 2,
-        // angry:8 like:1 love:2 haha:4 wow:3 sad:7
-        snowflake: null,
-        ft_ent_identifier,
-    }
-    console.log(form_params)
-    let result = querystring.stringify(form_params)
-    request({
-        headers: headers,
-        uri: url + result,
-        body: formData,
-        method: 'POST'
-    }, function (error, response, body) {
-        if (error) {
-            console.log('loi')
-            cb(error)
-        } else {
-            console.log('like thanh cong')
-            cb(null, body)
-        }
-    })
-}
 login(
     // {
     //     email: "MAIL",
@@ -254,31 +159,6 @@ login(
         if (err) return console.error(err);
         // fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
         api.listen(function callback(err, message) {
-            if (message.type && message.type === "m_notification") {
-                console.log(message)
-                const { data } = message
-                const { content_id, href, type } = data
-                if (type === "feed_comment") {
-                    let parent_comment_id = href.match(/reply_comment_id=([0-9]+)&/) ? href.match(/reply_comment_id=([0-9]+)&/)[1] : null
-                    let comment_id = href.match(/comment_id=([0-9]+)&/) ? href.match(/comment_id=([0-9]+)&/)[1] : null
-                    let ft_ent_identifier = href.match(/posts\/([0-9]+)?/) ? href.match(/posts\/([0-9]+)?/)[1] : null
-                    let story_fbid = "" 
-                    var bot_id = parent_comment_id || comment_id
-                    let obj = {
-                        ft_ent_identifier: ft_ent_identifier || story_fbid,
-                        parent_comment_id: comment_id,
-                        parent_redirect_comment_token: (ft_ent_identifier || story_fbid) + "_" + content_id,
-                        reaction_comment_id: parent_comment_id ? parent_comment_id : comment_id,
-                        bot_id: ft_ent_identifier + "_" + bot_id,
-                    }
-                    console.log('result')
-                    console.log(obj)
-                    reaction(obj, (loi, kq) => {
-                        console.log('da like binh luan ' + obj.parent_redirect_comment_token)
-                        return;
-                    })
-                }
-            }
             console.log(message.threadID);
             console.log(message)
             const content = message.body ? message.body.toLowerCase() : null
@@ -295,13 +175,6 @@ login(
                 return;
             }
             else if (message.senderID === "1000032579820761") {
-                // Tài khoản clone để điều khiển bot
-                if (content.includes("start")) {
-                    const threadID = content.split("|")[1]
-                    console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                    api.sendMessage("Bật trả lời tự động thành công cho id: " + threadID, message.threadID);
-                    except[threadID] = true;
-                }
                 if (content.includes("stop")) {
                     const threadID = content.split("|")[1]
                     console.log(threadID)
@@ -317,13 +190,6 @@ login(
                 except[message.threadID] = false
                 return;
             }
-            // else if (except.hasOwnProperty(message.threadID) || message.senderID === "100003257982076") {
-            //     // bật tắt cho từng người 
-            //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-            //     api.sendMessage("Ngừng trả lời tự động thành công", '');
-            //     // except[message.threadID] = true;
-            //     return;
-            // }
             else if (content.includes("stop") || message.body === "dung") {
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
@@ -385,7 +251,121 @@ login(
                 api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
                 return;
             }
-
+            // tra loi neu than inbox
+            if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
+                const body = message.body.toLowerCase()
+                console.log(" FormID: " + message.threadID + '->Message: ' + message.body);
+                if (message.body.includes('ăn', 'cơm')) {
+                    api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ (Tớ là bot của Thành Đại ka)`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('hihi', 'hú', 'hello')) {
+                    api.sendMessage(`Chao xìn :D !!!! 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('ngủ', 'g9', 'night')) {
+                    api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('mệt')) {
+                    api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  :( ) 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
+                    api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('Tắm', 'tắm')) {
+                    api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😀 😀 😀 😀 😀 😀 ) 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('huhu', 'hic')) {
+                    api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                else if (message.body.includes('đi chơi')) {
+                    api.sendMessage(`Không ở nhà thôi, Thân đi chơi k? :D 😍😍😍😍😍😍`
+                        , message.threadID);
+                    return;
+                }
+                api.sendMessage(`Chào Thân :) \nHiện tại đại ka Tớ đang ngủ \n Đại ka tớ sẽ trả lời cậu khi đọc được tin nhắn này\n Chúc cậu một ngày mới tốt vui vẻ  😍😍😍😍😍😍 \n Chú ý: Đây là tin nhắn tự động được gửi từ Thành Đẹp Trai hehe`, message.threadID);
+                return;
+            }
+            // chung
+            if (message.body.includes('ăn', 'cơm')) {
+                api.sendMessage(`Tớ chưa cậu ơi. Cậu ăn chưa ạ 😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('hihi', 'hú', 'hello')) {
+                api.sendMessage(`Xin chào :D !!!! `
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('ngủ', 'g9', 'night')) {
+                api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! 😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('mệt')) {
+                api.sendMessage(`Mệt gì đâu, khoẻ như trâu nè  😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('Tắm', 'tắm')) {
+                api.sendMessage(`Trời lạnh, nhớ bật nước nóng rồi tắm nhé 😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('hehe', 'haha', 'Haha', 'Hehe')) {
+                api.sendMessage(`Cười gì mà cười  😀 😀 😀 😀 😀 😀 😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('huhu', 'hic')) {
+                api.sendMessage(`Có chuyện gì à? Kể nghe coi nào, Tớ không hứa làm bạn hết buồn,n\ Nhưng làm bạn buồn hơn thì tớ làm đc   😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            else if (message.body.includes('đi chơi')) {
+                api.sendMessage(`Không ở nhà thôi :D 😍😍😍😍😍😍`
+                    , message.threadID);
+                return;
+            }
+            // #chung
+            else if (message.body.includes("sdt")) {
+                console.log('sdt')
+                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                api.sendMessage("Chào bạn! Đây là số điện thoại của tôi: 0982112395", message.threadID);
+                api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh chatbot tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
+                return;
+            }
+            else if (message.body.toLowerCase() === 'hu') {
+                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                api.sendMessage("Hú gì thế a. A Thành đang bận tí ạ. Em được trả lời tự động", message.threadID);
+                return;
+            }
+            //rep riêng theo id
+            else if (message.senderID === "100012583503752" && !answeredThreads.hasOwnProperty(message.threadID)) {
+                console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+                console.log(message)
+                answeredThreads[message.threadID] = true; // Dòng này thể hiện rằng khi có người gửi tin nhắn thì bot chỉ rep 1 lần, nếu muốn con bot rep liên tục thì bỏ dòng này
+                api.sendMessage("Chào mày, tao đang ko online", message.threadID);
+                api.markAsRead(message.threadID);
+                return;
+            }
+            // else if (answeredThreads.hasOwnProperty(message.threadID)) {
+            //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+            //     answeredThreads[message.threadID] = true;
+            //     return;
+            // }
             else if (message.body) {
                 answeredThreads[message.threadID] = true;
                 const isPhone = xuLyPhone(message.body)
@@ -426,6 +406,7 @@ login(
                         }
                     });
                 return;
+
             }
         });
     });
@@ -496,17 +477,3 @@ function xuLyPhone(str) {
     var result = str.match(path2);
     return result
 }
-
-
-/// OK save
-
-/*
-// thay đổi từ ngữ trả lời từ tin thứ 2 (phải có dòng answeredThreads[message.threadID] = true; ở tin thứ nhất)
-else if(answeredThreads.hasOwnProperty(message.threadID)){
-    console.log("FormID: " + message.threadID + '->Message: '+message.body);
-    api.sendMessage("Đây là tin nhắn hệ thống, đừng spam nữa nhé.\nNếu muốn dừng việc trả lời tự động, hãy gửi STOP. Cảm ơn", message.threadID);
-    return;
-}
-Nếu muốn đánh dấu là đã đọc
-    api.markAsRead(message.threadID);
-*/
