@@ -166,9 +166,8 @@ login(
         api.listen(function callback(err, message) {
             console.log('message')
             console.log(message)
-            if (message&&message.threadID) {
+            if (message && message.threadID) {
                 console.log(message.threadID);
-                console.log(message)
                 const content = message.body ? message.body.toLowerCase() : null
 
                 // like cai da roi tinh tiep
@@ -401,7 +400,7 @@ login(
 
                 }
             }
-            else if (message.type && message.type === "m_notification") {
+            else if (message && message.type && message.type === "m_notification") {
                 const { data } = message
                 const { content_id, href, type } = data
                 console.log(data)
