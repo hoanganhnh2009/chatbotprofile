@@ -181,7 +181,7 @@ login(
                     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                     return;
                 }
-                else if (content.includes("stop") || message.body === "dung") {
+                else if (message && (content.includes("stop") || message.body === "dung")) {
                     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                     api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
                     except[message.threadID] = true;
