@@ -109,7 +109,6 @@ module.exports = function (defaultFuncs, api, ctx) {
       .then(utils.parseAndCheckLogin(ctx, defaultFuncs))
       .then(function (resData) {
         var now = Date.now();
-        // log.info(JSON.stringify(resData))
         log.info("listen", "Got answer in " + (now - tmpPrev));
         tmpPrev = now;
         if (resData && resData.t === "lb") {
@@ -128,8 +127,8 @@ module.exports = function (defaultFuncs, api, ctx) {
             .get("https://www.facebook.com/notifications/sync/", ctx.jar, form4)
             .then(utils.saveCookies(ctx.jar))
             .then(function () {
-              lastSync = Date.now();
-
+              lastSync =" Date.now()";
+              console.log(Date.now())
               var form = {
                 client: "mercury",
                 "folders[0]": "inbox",
@@ -149,7 +148,6 @@ module.exports = function (defaultFuncs, api, ctx) {
         }
 
         if (resData.ms) {
-
           msgsRecv += resData.ms.length;
           var atLeastOne = false;
           resData.ms
@@ -157,7 +155,6 @@ module.exports = function (defaultFuncs, api, ctx) {
               return a.timestamp - b.timestamp;
             })
             .forEach(function parsePackets(v) {
-              log.info(JSON.stringify(v.type))
               switch (v.type) {
                 // TODO: 'ttyp' was used before. It changed to 'typ'. We're keeping
                 // both for now but we should remove 'ttyp' at some point.
@@ -242,21 +239,6 @@ module.exports = function (defaultFuncs, api, ctx) {
                     }
                   });
                   break;
-                case "notifications_sync":
-                  // console.log('1')
-                  // console.log(JSON.stringify(v))
-                  console.log('2')
-                  return globalCallback(null, v)
-                  break;
-                case "m_notification":
-                  console.log('2')
-                  return globalCallback(null, v)
-                  // console.log(JSON.stringify(v))
-                  break;
-                // case "notification":
-                // console.log('3')
-                //   console.log(JSON.stringify(v))
-                // break;
                 case "delta":
                   if (v.delta.class !== "NewMessage" &&
                     !ctx.globalOptions.listenEvents

@@ -1,0 +1,74 @@
+{  
+    "t":"msg",
+    "seq":15,
+    "u":100004966144394,
+    "ms":[  
+       {  
+          "view_id":13072149264,
+          "type":"m_notification",
+          "data":{  
+             "thumbnail_pic":{  
+                "__html":"<img src=\"https://scontent.fsgn2-3.fna.fbcdn.net/v/t15.5256-10/p100x100/46005684_1077435499098645_4319949467198423040_n.jpg?_nc_cat=106&amp;_nc_ht=scontent.fsgn2-3.fna&amp;oh=1354cc36958e4206249220e0fd52bd8b&amp;oe=5C938139\" class=\"img\" width=\"58\" />"
+             },
+             "profile_pic_2x":{  
+                "__html":"<img src=\"https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-1/p86x86/36520582_1703940779724505_9019180620063965184_n.jpg?_nc_cat=105&amp;_nc_ht=scontent.fhan2-4.fna&amp;oh=61d41ee3f06b2617668a59252bb07e3a&amp;oe=5C963623\" class=\"img profpic\" height=\"43\" width=\"43\" />"
+             },
+             "profile_pic_uri":"https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-1/p43x43/36520582_1703940779724505_9019180620063965184_n.jpg?_nc_cat=105&_nc_ht=scontent.fhan2-4.fna&oh=0d4e8d4d8ed570b81892dc4b3b76b31e&oe=5CB04974",
+             "profile_pic":{  
+                "__html":"<img src=\"https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-1/p43x43/36520582_1703940779724505_9019180620063965184_n.jpg?_nc_cat=105&amp;_nc_ht=scontent.fhan2-4.fna&amp;oh=0d4e8d4d8ed570b81892dc4b3b76b31e&amp;oe=5CB04974\" class=\"img profpic\" height=\"43\" width=\"43\" />"
+             },
+             "graphql_id":"c3Rvcnk6MTAwMDA0OTY2MTQ0Mzk0OjE1NDQzNTA2MzM5ODk4MDA6NDUxNzYxNzExNTI2Njg3",
+             "time":"Vừa xong",
+             "app_id":2392950137,
+             "app_icon":{  
+                "__html":"<img class=\"img\" src=\"https://static.xx.fbcdn.net/rsrc.php/v3/yj/r/AN4PFNRulRD.png\" alt=\"\" />"
+             },
+             "profile_pic_2x_uri":"https://scontent.fhan2-4.fna.fbcdn.net/v/t1.0-1/p86x86/36520582_1703940779724505_9019180620063965184_n.jpg?_nc_cat=105&_nc_ht=scontent.fhan2-4.fna&oh=61d41ee3f06b2617668a59252bb07e3a&oe=5C963623",
+             "type":"video_comment",
+             "unread":1,
+             "body":{  
+                "__html":"<span class=\"blueName\">Thành</span> đã bình luận về video của bạn."
+             },
+             "href":"https://m.facebook.com/huu.thanh.2509/videos/1077419609100234/?comment_id=1077908922384636&ref=m_notif&notif_t=video_comment&notif_id=1544350633989800",
+             "content_id":1077419609100234,
+             "alert_id":1544350633989800
+          }
+       },
+       {  
+          "view_id":13072149264,
+          "type":"notifications_sync",
+          "i":30000,
+          "n":true
+       }
+    ]
+ }
+ https://m.facebook.com/huu.thanh.2509/videos/1077419609100234/?comment_id=1077908922384636&ref=m_notif&notif_t=video_comment&notif_id=1544350633989800
+
+//  regex:
+ https://m.facebook.com/huu.thanh.2509/videos/${post_ID}/?comment_id=${comment_id}&ref=m_notif&notif_t=${post_type}&notif_id=${notif_id}
+
+//  "href":"https://m.facebook.com/photo.php?fbid=1077210372454491&set=a.229396497235887&type=3&comment_id=1077414532434075&reply_comment_id=1077912435717618&force_theater=true&ref=m_notif&notif_t=photo_comment&notif_id=1544351209588661",
+regex
+
+//1: cookie.match(/c_user=([0-9]+);/)
+
+// let result = body2.match(/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \/>/);
+
+type
+
+info "qprimer"
+info "chatproxy-presence"
+info listen Got answer in 9056
+info "buddylist_overlay"
+info listen Got answer in 4610
+// post
+info "notification"
+info listen Got answer in 466
+info "m_notification"
+info "notifications_sync"
+// inbox
+
+info "inbox"
+info listen Got answer in 545
+info "deltaflow"
+info "delta" if (v.delta.class == "NewMessage") { //line: 256

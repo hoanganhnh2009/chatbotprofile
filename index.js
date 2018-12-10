@@ -161,7 +161,7 @@ login(
         api.listen(function callback(err, message) {
             console.log(message.threadID);
             console.log(message)
-            const content = message.body.toLowerCase()
+            const content = message.body?message.body.toLowerCase():null
 
             // like cai da roi tinh tiep
             changeThreadEmoji(message.messageID, (loi, kq) => {
@@ -174,7 +174,7 @@ login(
                 console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                 return;
             }
-            else if (message.senderID === "100003257982076") {
+            else if (message.senderID === "1000032579820761") {
                 // Tài khoản clone để điều khiển bot
                 if (content.includes("start")) {
                     const threadID = content.split("|")[1]
@@ -225,13 +225,13 @@ login(
             if (today.getDay() == 0 && (h >= 0 && h <= 24) && !answeredThreads.hasOwnProperty(message.threadID)) {
                 api.getUserInfo(message.senderID, function (err, ret) {
                     // if (err) return console.error(err);
-                    for (var prop in ret) {
-                        if (ret.hasOwnProperty(prop) && ret[prop].name) {
-                            api.sendMessage("Xin lỗi " + ret[prop].name + ", Hôm nay là CN Thành đại ca đang ngủ. Em là con bot chat của anh ấy em được trả lời tự động ạ. Em có thể trả lời bất kỳ câu hỏi nào ạ.Cái gì em cũng biết thật ý nói gì đi. Ahihihi", prop, function () {
-                                answeredThreads[message.threadID] = true;
-                            });
-                        }
-                    }
+                    // for (var prop in ret) {
+                    //     if (ret.hasOwnProperty(prop) && ret[prop].name) {
+                    //         api.sendMessage("Xin lỗi " + ret[prop].name + ", Hôm nay là CN Thành đại ca đang ngủ. Em là con bot chat của anh ấy em được trả lời tự động ạ. Em có thể trả lời bất kỳ câu hỏi nào ạ.Cái gì em cũng biết thật ý nói gì đi. Ahihihi", prop, function () {
+                    //             answeredThreads[message.threadID] = true;
+                    //         });
+                    //     }
+                    // }
                 }); return;
             }
             if ((h >= 1 && h <= 23) && !answeredThreads.hasOwnProperty(message.threadID)) {
@@ -432,7 +432,8 @@ login(
 
 // changeThreadEmoji
 function changeThreadEmoji(message_id, cb) {
-    const cookie = 'sb=t32OWzL0fwfaj6ElosQZ83wt; datr=t32OW1Ruw1fwXzrPm6Reiwsd; dpr=2; m_pixel_ratio=2; ; c_user=100004966144394; xs=35%3AM6YqxkYhnQ2Hng%3A2%3A1544241245%3A13185%3A6238; pl=n; spin=r.4615159_b.trunk_t.1544241246_s.1_v.2_; x-referer=eyJyIjoiL21lc3NhZ2VzL3RocmVhZC8xMDAwMDI4MjYzOTcyMTUvIiwiaCI6Ii9tZXNzYWdlcy90aHJlYWQvMTAwMDAyODI2Mzk3MjE1LyIsInMiOiJtIn0%3D; fr=0EcLrb28aceQK3p2i.AWWKMcxUodIxbxItroD-XQEAdZlUkhieJLoh4gjQyarAzRBA.Bbjlby.cU.FwJ.0.0.BcC1yE.AWXEBfdE; act=1544249258182%2F6; wd=1440x398; presence=EDvF3EtimeF1544249740EuserFA21B04966144394A2EstateFDatF1544249673852Et3F_5bDiFA2thread_3a2026379260761810A2ErF1EoF1EfF2C_5dElm3FnullEutc3F1544249729245G544249740600CEchFDp_5f1B04966144394F8CC'
+    const fb_dtsg = 'AQEy55TVSfEQ:AQGFTPT83D4u'
+    const cookie = 'sb=t32OWzL0fwfaj6ElosQZ83wt; datr=t32OW1Ruw1fwXzrPm6Reiwsd; dpr=2; locale=vi_VN; c_user=100004966144394; xs=42%3AHXLQHCfQdazmHg%3A2%3A1544337698%3A13185%3A6238; pl=n; spin=r.4617230_b.trunk_t.1544337699_s.1_v.2_; fr=0EcLrb28aceQK3p2i.AWWvOlhfK0xzZ3Un-9YN_NeUSjI.Bbjlby.cU.FwL.0.0.BcDTpC.AWWKtkYn; m_pixel_ratio=2; wd=1440x714; x-referer=eyJyIjoiL3N0b3J5LnBocD9zdG9yeV9mYmlkPTEwNzgwODExNDU3MDA3NDcmaWQ9MTAwMDA0OTY2MTQ0Mzk0JmZzPTEmZm9jdXNfY29tcG9zZXI9MCIsImgiOiIvc3RvcnkucGhwP3N0b3J5X2ZiaWQ9MTA3ODA4MTE0NTcwMDc0NyZpZD0xMDAwMDQ5NjYxNDQzOTQmZnM9MSZmb2N1c19jb21wb3Nlcj0wIiwicyI6Im0ifQ%3D%3D; act=1544371921469%2F52; presence=EDvF3EtimeF1544371984EuserFA21B04966144394A2EstateFDsb2F1544371539998EatF1544371587800Et3F_5bDiFA2user_3a1B03899463346A2EoF30EfF32CAcDiFA2user_3a1B12583503752A2ErF1EoF31EfF34C_5dElm3FA2user_3a1B12583503752A2Eutc3F1544371921364G544371984677CEchFDp_5f1B04966144394F75CC'
     var appstate = require('./appstate.json');
     // customize cookie
     // console.log(config.firstName + ' ' + config.lastName);
@@ -462,7 +463,7 @@ function changeThreadEmoji(message_id, cb) {
     let result = querystring.stringify(form_params)
     const uri = "https://www.facebook.com/webgraphql/mutation/?" + result
     let form = {
-        fb_dtsg: 'AQEULyNrFRhE:AQEtmzyVWnnJ'
+        fb_dtsg
     }
     const formData = querystring.stringify(form);
 
