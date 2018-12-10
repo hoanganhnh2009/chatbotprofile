@@ -462,12 +462,12 @@ login(
 function changeThreadEmoji(message_id, cb) {
     var fb_dtsg = JSON.parse(fs.readFileSync('./app.json', 'utf8'))[1].value;
     var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
-    // .map((e, i) => { return { ...e, index: i } })
     var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
     Array.prototype.rand = function () {
         return this[Math.floor(Math.random() * this.length)];
     }
-    const actor_id = "100004966144394"
+    // const actor_id = "100004966144394"
+    const actor_id = appState[3].value
     let reaction_types = ["😆", "😠", "😢", "😮", "😍", "👍", "👎"]
     // const message_id = "mid.$cAAAAB-rQhfZtvfeQClnjLJFrGefK"
     const reaction_type = reaction_types.rand()
