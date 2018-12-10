@@ -420,7 +420,7 @@ login(
                 const { content_id, href, type } = data
                 console.log(data)
                 // console.log(content_id + href + type)
-                if (type === "feed_comment"|| type==="feed_comment_reply") {
+                if (type === "feed_comment" || type === "feed_comment_reply") {
                     // var fbid = url.match(/fbid=([0-9]+)&/)[1]
                     // var type = url.match(/type=([0-9]+)&/)[1]
 
@@ -441,7 +441,7 @@ login(
                         reaction_comment_id: parent_comment_id ? parent_comment_id : comment_id,
                         bot_id: ft_ent_identifier + "_" + bot_id,
                     }
-                    if(me==="https://m.facebook.com/huu.thanh.2509"){
+                    if (me === "https://m.facebook.com/huu.thanh.2509") {
                         console.log('tuong cua minh')
                     }
                     // console.log('result')
@@ -461,7 +461,8 @@ login(
 // changeThreadEmoji
 function changeThreadEmoji(message_id, cb) {
     var fb_dtsg = JSON.parse(fs.readFileSync('./app.json', 'utf8'))[1].value;
-    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
+    // .map((e, i) => { return { ...e, index: i } })
     var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
     Array.prototype.rand = function () {
         return this[Math.floor(Math.random() * this.length)];
@@ -525,7 +526,8 @@ function xuLyPhone(str) {
 
 // more
 app.get('/cookie', function (req, res) {
-    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
+    // .map((e, i) => { return { ...e, index: i } })
     // c_user=100004966144394;xs=31:6buTziuxWwYKEw:2:1544417391:13185:6238;fr=14E6RCpLCQU6T4TIi.AWXBEfUzW-8EqlCoedKRdF6iuF0.BcDfBv..AAA.0.0.BcDfBv.AWWzBUwr;datr=b_ANXLVAKFzKiP6DXzt6X33P
     var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
     res.send(cookie)
@@ -540,7 +542,8 @@ app.get('/dtsg', function (req, res) {
     //     const { data } = JSON.parse(kq_body)
     //     res.send(data)
     // })
-    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
+    // .map((e, i) => { return { ...e, index: i } })
     var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
     const headers = {
         // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -577,7 +580,8 @@ app.get('/dtsg', function (req, res) {
 
 function reaction(data, cb) {
     var fb_dtsg = JSON.parse(fs.readFileSync('./app.json', 'utf8'))[1].value;
-    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8')).map((e, i) => { return { ...e, index: i } })
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
+    // .map((e, i) => { return { ...e, index: i } })
     var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
     // const fb_dtsg = 'AQEy55TVSfEQ:AQGFTPT83D4u'
     // const cookie = 'sb=t32OWzL0fwfaj6ElosQZ83wt; datr=t32OW1Ruw1fwXzrPm6Reiwsd; dpr=2; locale=vi_VN; c_user=100004966144394; xs=42%3AHXLQHCfQdazmHg%3A2%3A1544337698%3A13185%3A6238; pl=n; spin=r.4617230_b.trunk_t.1544337699_s.1_v.2_; fr=0EcLrb28aceQK3p2i.AWWvOlhfK0xzZ3Un-9YN_NeUSjI.Bbjlby.cU.FwL.0.0.BcDTpC.AWWKtkYn; m_pixel_ratio=2; wd=1440x714; x-referer=eyJyIjoiL3N0b3J5LnBocD9zdG9yeV9mYmlkPTEwNzgwODExNDU3MDA3NDcmaWQ9MTAwMDA0OTY2MTQ0Mzk0JmZzPTEmZm9jdXNfY29tcG9zZXI9MCIsImgiOiIvc3RvcnkucGhwP3N0b3J5X2ZiaWQ9MTA3ODA4MTE0NTcwMDc0NyZpZD0xMDAwMDQ5NjYxNDQzOTQmZnM9MSZmb2N1c19jb21wb3Nlcj0wIiwicyI6Im0ifQ%3D%3D; act=1544371921469%2F52; presence=EDvF3EtimeF1544371984EuserFA21B04966144394A2EstateFDsb2F1544371539998EatF1544371587800Et3F_5bDiFA2user_3a1B03899463346A2EoF30EfF32CAcDiFA2user_3a1B12583503752A2ErF1EoF31EfF34C_5dElm3FA2user_3a1B12583503752A2Eutc3F1544371921364G544371984677CEchFDp_5f1B04966144394F75CC'
