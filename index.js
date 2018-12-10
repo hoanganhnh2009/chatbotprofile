@@ -233,7 +233,7 @@ login(
                         api.markAsRead(message.threadID);
                         console.log("Sender ID: " + message.senderID);
                     }
-                    else if (content.includes("fb", 'facebook', 'FB')) {
+                    else if (message.body.includes("fb", 'facebook', 'FB')) {
                         console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                         api.sendMessage("Xin mời click : https://www.facebook.com/huu.thanh.2509 để ghé thăm tường của tôi", message.threadID);
                         api.sendMessage("Tin nhắn trả lời tự động. HD:  \n- Trả lời fb để ghé thăm tường của tôi. \n- Trả lời sdt để lấy số điện thoại của tôi. \n- Trả lời kèm stop ở đầu câu để tránh tự động trả lời. \n- Trả lời bất kỳ để tiếp tục cuộc trò chuyện.", message.threadID);
