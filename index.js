@@ -22,7 +22,7 @@ var botkey = "http://sandbox.api.simsimi.com/request.p?key=32eaa54a-bbe1-41dc-8d
 var querystring = require('querystring');
 var login = require("facebook-chat-api");
 const fs = require("fs");
-
+const cheerio = require('cheerio');
 var except = {};
 var answeredThreads = {};
 console.log('Server running at http://127.0.0.1:5000/');
@@ -178,7 +178,7 @@ login(
                         console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                         return;
                     }
-                    else if (message && (message.body.includes("stop") || message.body === "dung")) {
+                    else if (message.body.toLowerCase().includes("stop") || message.body === "dung") {
                         console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                         api.sendMessage("Ngừng trả lời tự động thành công", message.threadID);
                         except[message.threadID] = true;
@@ -338,45 +338,49 @@ login(
                     }
                 }
             }
-            else if (message && message.type && message.type === "m_notification") {
+            else if (message.type && message.type === "m_notification") {
                 const { data } = message
                 const { content_id, href, type } = data
                 console.log(data)
                 // console.log(content_id + href + type)
-                if (type === "feed_comment" || type === "feed_comment_reply") {
-                    // var fbid = url.match(/fbid=([0-9]+)&/)[1]
-                    // var type = url.match(/type=([0-9]+)&/)[1]
+                // if (type === "feed_comment" || type === "feed_comment_reply" || type === "video_comment" || type === "photo_comment") {
 
-                    // var reply_comment_id = url.match(/reply_comment_id=([0-9]+)&/)[1]
-                    // var notif_id = url.match(/notif_id=([0-9]+)/)[1]
-                    // var notif_t = url.match(/notif_t=([a-z]+)&/)
-                    // chua tra loi nick khac
-                    let parent_comment_id = href.match(/reply_comment_id=([0-9]+)&/) ? href.match(/reply_comment_id=([0-9]+)&/)[1] : null
-                    let comment_id = href.match(/comment_id=([0-9]+)&/) ? href.match(/comment_id=([0-9]+)&/)[1] : null
-                    let ft_ent_identifier = href.match(/posts\/([0-9]+)?/) ? href.match(/posts\/([0-9]+)?/)[1] : null
-                    let story_fbid = "" //th tag theo name 
-                    let me = href.match(/(.+)\/posts/) ? href.match(/(.+)\/posts/)[1] : null
-                    var bot_id = parent_comment_id || comment_id
-                    let obj = {
-                        ft_ent_identifier: ft_ent_identifier || story_fbid,
-                        parent_comment_id: comment_id,
-                        parent_redirect_comment_token: (ft_ent_identifier || story_fbid) + "_" + content_id,
-                        reaction_comment_id: parent_comment_id ? parent_comment_id : comment_id,
-                        bot_id: ft_ent_identifier + "_" + bot_id,
-                    }
-                    if (me === "https://m.facebook.com/huu.thanh.2509") {
-                        console.log('tuong cua minh')
-                    }
-                    // console.log('result')
-                    // console.log(parent_comment_id)
-                    // console.log(comment_id)
-                    // console.log(content_id)
-                    console.log(obj)
-                    reaction(obj, (loi, kq) => {
-                        console.log('da like binh luan ' + obj.parent_redirect_comment_token)
-                    })
+                // var fbid = url.match(/fbid=([0-9]+)&/)[1]
+                // var type = url.match(/type=([0-9]+)&/)[1]
+
+                // var reply_comment_id = url.match(/reply_comment_id=([0-9]+)&/)[1]
+                // var notif_id = url.match(/notif_id=([0-9]+)/)[1]
+                // var notif_t = url.match(/notif_t=([a-z]+)&/)
+                // chua tra loi nick khac
+                let parent_comment_id = href.match(/reply_comment_id=([0-9]+)&/) ? href.match(/reply_comment_id=([0-9]+)&/)[1] : null
+                let comment_id = href.match(/comment_id=([0-9]+)&/) ? href.match(/comment_id=([0-9]+)&/)[1] : null
+                let ft_ent_identifier = href.match(/posts\/([0-9]+)?/) ? href.match(/posts\/([0-9]+)?/)[1] : null
+                if (!ft_ent_identifier) {
+                    ft_ent_identifier = href.match(/fbid=([0-9]+)?/) ? href.match(/fbid=([0-9]+)?/)[1] : null
                 }
+                let story_fbid = "" //th tag theo name 
+                let me = href.match(/(.+)\/posts/) ? href.match(/(.+)\/posts/)[1] : null
+                var bot_id = parent_comment_id || comment_id
+                let obj = {
+                    ft_ent_identifier: ft_ent_identifier || story_fbid,
+                    parent_comment_id: comment_id,
+                    parent_redirect_comment_token: (ft_ent_identifier || story_fbid) + "_" + content_id,
+                    reaction_comment_id: parent_comment_id ? parent_comment_id : comment_id,
+                    bot_id: ft_ent_identifier + "_" + bot_id,
+                }
+                if (me === "https://m.facebook.com/huu.thanh.2509") {
+                    console.log('tuong cua minh')
+                }
+                // console.log('result')
+                // console.log(parent_comment_id)
+                // console.log(comment_id)
+                // console.log(content_id)
+                console.log(obj)
+                reaction(obj, (loi, kq) => {
+                    console.log('da like binh luan ' + obj.parent_redirect_comment_token)
+                })
             }
+            // }
 
         });
     });
@@ -501,6 +505,37 @@ app.get('/dtsg', function (req, res) {
     })
 })
 
+app.get('/crawler', function (req, res) {
+    var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
+    var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
+    const headers = {
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        cookie,
+        'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.110 Safari/537.36',
+    }
+    request({
+        headers: headers,
+        uri: 'https://m.facebook.com',
+        // body: formData,
+        method: 'GET'
+    }, function (error2, response2, body2) {
+        if (error2) {
+            console.log(error2)
+            res.send(error2)
+        } else {
+            var $ = cheerio.load(body2);
+            var data = $("input[name=fb_dtsg]").val()
+            console.log(data)
+            res.send(data)
+            // re = "/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \\/>/"
+            // let result = body2.match(/<input type=\"hidden\" name=\"fb_dtsg\" value=\"(.*?)\" autocomplete=\"off\" \/>/);
+            // const dtsg = result[1]
+            // // da co dtsg :D
+            // var obj;
+
+        }
+    })
+})
 function reaction(data, cb) {
     var fb_dtsg = JSON.parse(fs.readFileSync('./app.json', 'utf8'))[1].value;
     var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))

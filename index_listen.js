@@ -94,9 +94,7 @@ app.get('/dtsg', function (req, res) {
         }
     })
 })
-function bot(cb) {
 
-}
 function comment(data, cb) {
     // const fb_dtsg = 'AQH5taqddzup:AQFomZUKR2J6'
     var fb_dtsg = JSON.parse(fs.readFileSync('./app.json', 'utf8'))[1].value;
@@ -306,10 +304,10 @@ login(
                     // console.log(comment_id)
                     // console.log(content_id)
                     console.log(obj)
-                    comment(obj, (loi, kq) => {
-                        console.log(kq)
-                        console.log('da tra loi binh luan ' + obj.parent_redirect_comment_token)
-                    })
+                    // comment(obj, (loi, kq) => {
+                    //     console.log(kq)
+                    //     console.log('da tra loi binh luan ' + obj.parent_redirect_comment_token)
+                    // })
                     reaction(obj, (loi, kq) => {
                         console.log('da like binh luan ' + obj.parent_redirect_comment_token)
                     })
