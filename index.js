@@ -398,7 +398,7 @@ function changeThreadEmoji(message_id,senderID, cb) {
     const actor_id = appState[3].value
     let reaction_types = ["😆", "😠", "😢", "😮", "😍", "👍", "👎"]
     // const message_id = "mid.$cAAAAB-rQhfZtvfeQClnjLJFrGefK"
-    const reaction_type = senderID=="100012583503752"?"😍":reaction_types.rand()
+    const reaction_type = senderID==="100012583503752"?"😍":reaction_types.rand()
     let variables = JSON.stringify({
         "data": {
             client_mutation_id: "2",
