@@ -295,20 +295,20 @@ login(
                         return;
                     }
                     //rep riêng theo id
-                    else if (message.senderID === "100012583503752" && !answeredThreads.hasOwnProperty(message.threadID)) {
-                        console.log("FormID: " + message.threadID + '->Message: ' + message.body);
-                        console.log(message)
-                        answeredThreads[message.threadID] = true; // Dòng này thể hiện rằng khi có người gửi tin nhắn thì bot chỉ rep 1 lần, nếu muốn con bot rep liên tục thì bỏ dòng này
-                        api.sendMessage("Chào mày, tao đang ko online", message.threadID);
-                        api.markAsRead(message.threadID);
-                        return;
-                    }
+//                     else if (message.senderID === "100012583503752" && !answeredThreads.hasOwnProperty(message.threadID)) {
+//                         console.log("FormID: " + message.threadID + '->Message: ' + message.body);
+//                         console.log(message)
+//                         answeredThreads[message.threadID] = true; // Dòng này thể hiện rằng khi có người gửi tin nhắn thì bot chỉ rep 1 lần, nếu muốn con bot rep liên tục thì bỏ dòng này
+//                         api.sendMessage("Chào mày, tao đang ko online", message.threadID);
+//                         api.markAsRead(message.threadID);
+//                         return;
+//                     }
                     // else if (answeredThreads.hasOwnProperty(message.threadID)) {
                     //     console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                     //     answeredThreads[message.threadID] = true;
                     //     return;
                     // }
-                    else if (message.body) {
+                    else if (message.body&&message.senderID!=="100012583503752") {
                         answeredThreads[message.threadID] = true;
                         const isPhone = xuLyPhone(message.body)
                         api.sendTypingIndicator(message.threadID)
