@@ -251,7 +251,7 @@ login(
                             , message.threadID);
                         return;
                     }
-                    else if (message.body.includes('ngủ', 'g9', 'night')) {
+                    else if (message.body.includes('ngủ ngon', 'g9', 'good night')) {
                         api.sendMessage(`Chúc cậu ngủ ngon và có những giấc mơ đẹp nhé!!!! 😍😍😍😍😍😍`
                             , message.threadID);
                         return;
