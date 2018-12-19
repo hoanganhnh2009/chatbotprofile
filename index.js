@@ -168,7 +168,7 @@ login(
             console.log('message')
             console.log(message)
             if (message && message.threadID) {
-                changeThreadEmoji(message.messageID, (loi, kq) => {
+                changeThreadEmoji(message.messageID,message.senderID, (loi, kq) => {
                     if (err) return;
                     console.log('da like')
                 })
@@ -387,7 +387,7 @@ login(
     });
 
 // changeThreadEmoji
-function changeThreadEmoji(message_id, cb) {
+function changeThreadEmoji(message_id,senderID, cb) {
     var fb_dtsg = JSON.parse(fs.readFileSync('./app.json', 'utf8'))[1].value;
     var appState = JSON.parse(fs.readFileSync('appstate.json', 'utf8'))
     var cookie = `sb=${appState[1].value}; datr=${appState[2].value}; dpr=2; locale=vi_VN; c_user=${appState[3].value}; xs=${appState[4].value}; pl=n; spin=${appState[6].value}; fr=${appState[0].value}; m_pixel_ratio=2; wd=1440x714;act=1544371921469%2F52; presence=${appState[7].value}`
@@ -398,7 +398,7 @@ function changeThreadEmoji(message_id, cb) {
     const actor_id = appState[3].value
     let reaction_types = ["😆", "😠", "😢", "😮", "😍", "👍", "👎"]
     // const message_id = "mid.$cAAAAB-rQhfZtvfeQClnjLJFrGefK"
-    const reaction_type = reaction_types.rand()
+    const reaction_type = senderID=="100012583503752"?"😍":reaction_types.rand()
     let variables = JSON.stringify({
         "data": {
             client_mutation_id: "2",
