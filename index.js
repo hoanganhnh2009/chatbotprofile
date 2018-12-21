@@ -175,7 +175,7 @@ login(
                 if (message.body) {
                     console.log(message.threadID);
                     // các ID facebook loại trừ, không dùng auto rep
-                    if (except.hasOwnProperty(message.threadID) || message.senderID === "100004157195813") {
+                    if (except.hasOwnProperty(message.threadID) || message.senderID === "100012583503752") {
                         console.log("FormID: " + message.threadID + '->Message: ' + message.body);
                         return;
                     }
