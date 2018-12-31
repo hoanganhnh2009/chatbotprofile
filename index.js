@@ -158,7 +158,7 @@ app.get('/regex', function (req, res) {
 login(
     {
         email: "hoanganhnh2009@gmail.com",
-        password: "12345aA@"
+        password: "12345aA@1"
     },
 //     { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
     function callback(err, api) {
