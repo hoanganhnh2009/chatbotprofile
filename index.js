@@ -156,11 +156,11 @@ app.get('/regex', function (req, res) {
     res.send(result)
 })
 login(
-    {
-        email: "0975448178",
-        password: "12345aA@1"
-    },
-//     { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+//     {
+//         email: "0975448178",
+//         password: "12345aA@1"
+//     },
+    { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
     function callback(err, api) {
         if (err) return console.error(err);
         fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
