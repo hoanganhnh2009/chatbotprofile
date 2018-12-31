@@ -156,14 +156,14 @@ app.get('/regex', function (req, res) {
     res.send(result)
 })
 login(
-    // {
-    //     email: "MAIL",
-    //     password: "PWD"
-    // },
-    { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+    {
+        email: "hoanganhnh2009@gmail.com",
+        password: "12345aA@"
+    },
+//     { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
     function callback(err, api) {
         if (err) return console.error(err);
-        // fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
+        fs.writeFileSync('appstate.json', JSON.stringify(api.getAppState()));
         api.listen(function callback(err, message) {
             console.log('message')
             console.log(message)
