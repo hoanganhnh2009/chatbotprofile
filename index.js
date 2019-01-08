@@ -99,45 +99,48 @@ app.get('/chaobuoitoi', (req, res) => {
 })
 // #than
 app.get('/chaobuoisangthan', (req, res) => {
-    login(
-        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
-        function callback(err, api) {
-            if (err) return console.error(err);
-            api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
-                100012583503752);
-            res.send('da gui than buoi sang')
-        })
+//     login(
+//         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+//         function callback(err, api) {
+//             if (err) return console.error(err);
+//             api.sendMessage("Thân xinh gái ơi? Đến giờ rồi. \n Dậy đánh răng rửa mặt ăn sáng rồi đi làm thôi nào 😘😘😘😘😘😘",
+//                 100012583503752);
+//             res.send('da gui than buoi sang')
+//         })
+    console.log('chan doi vcl')
 })
 app.get('/testcron', (req, res) => {
-    login(
-        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
-        function callback(err, api) {
-            if (err) return console.error(err);
-            Array.prototype.rand = function () {
-                return this[Math.floor(Math.random() * this.length)];
-            }
-            const array = [
-                'Muộn rồi, ngủ thôi cậu ơi. Chúc cậu ngủ ngon và có những giấc mơ đẹp',
-                'Ngủ ngon nhé cậu! 😍😍😍😍',
-                'Ting ting. Bây giờ là 0h. Lên giường đắp chăn, bật quạt đi ngủ thôi :) 😋😋😋😋',
-                'Good night 😍😍😍😍',
-                'Đến giờ đi ngủ rồi, ngủ sớm mai còn đi làm nào :) Ngủ ngon nhé :D 😜😜😜😜'
-            ]
-            if (err) return console.error(err);
-            api.sendMessage(array.rand(),
-                100012583503752);
-            res.send('da gui tin nhan test thanh cong')
-        })
+//     login(
+//         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+//         function callback(err, api) {
+//             if (err) return console.error(err);
+//             Array.prototype.rand = function () {
+//                 return this[Math.floor(Math.random() * this.length)];
+//             }
+//             const array = [
+//                 'Muộn rồi, ngủ thôi cậu ơi. Chúc cậu ngủ ngon và có những giấc mơ đẹp',
+//                 'Ngủ ngon nhé cậu! 😍😍😍😍',
+//                 'Ting ting. Bây giờ là 0h. Lên giường đắp chăn, bật quạt đi ngủ thôi :) 😋😋😋😋',
+//                 'Good night 😍😍😍😍',
+//                 'Đến giờ đi ngủ rồi, ngủ sớm mai còn đi làm nào :) Ngủ ngon nhé :D 😜😜😜😜'
+//             ]
+//             if (err) return console.error(err);
+//             api.sendMessage(array.rand(),
+//                 100012583503752);
+//             res.send('da gui tin nhan test thanh cong')
+//         })
+     console.log('chan doi vcl')
 })
 app.get('/chaobuoitruathan', (req, res) => {
-    login(
-        { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
-        function callback(err, api) {
-            if (err) return console.error(err);
-            api.sendMessage("\nTrăng lên đỉnh núi rồi kìa\nĂn cơm bằng đũa hay thìa vậy Thân?:v 😘😘😘😘😘😘",
-                100012583503752);
-            res.send('da gui than buoi trưa')
-        })
+//     login(
+//         { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
+//         function callback(err, api) {
+//             if (err) return console.error(err);
+//             api.sendMessage("\nTrăng lên đỉnh núi rồi kìa\nĂn cơm bằng đũa hay thìa vậy Thân?:v 😘😘😘😘😘😘",
+//                 100012583503752);
+//             res.send('da gui than buoi trưa')
+//         })
+     console.log('chan doi vcl')
 })
 app.get('/spam', function (req, res) {
     var token = 'EAACW5Fg5N2IBABZAsTSqhIhPzqRdCOD7pX1yVssDZBPOMXY130FA6jShfeZAqMcSTfwMD4Qtv5dAaXSPwunKlgKfa19J75cv36OOoxzXfAttpgPYLZCBXauH5gbCu2cZASo2jiRfQ17oHe0rmgXFRfFfJEmJ3WJnhZC0H2ZAV3ZCPPGMuoVRcuN4'
@@ -158,7 +161,7 @@ app.get('/regex', function (req, res) {
 login(
 //     {
 //         email: "0975448178",
-//         password: "12345aA@1"
+//         password: "@1"
 //     },
     { appState: JSON.parse(fs.readFileSync('appstate.json', 'utf8')) },
     function callback(err, api) {
