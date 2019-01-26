@@ -13,7 +13,7 @@
 // Code: Nguyen Huu Thanh - thanhnh2509@gmail.com
 
 var request = require("request");
-var botkey = "http://sandbox.api.simsimi.com/request.p?key=e559c5c6-cba4-4799-9096-652885b3fefd&lc=vn&ft=1.0&text=";
+var botkey = "http://sandbox.api.simsimi.com/request.p?key=dbac23c4-6ce5-4b36-b8db-f2b9bed7c942&lc=vn&ft=1.0&text=";
 //thanhnh25091995@gmail.com 0ede1528-23ee-438a-b348-5494dcb1f227 expired
 //thanhnh2509@gmail.com 4c6867ab-0f03-4921-8553-30214e4be8fb expired
 // hoanganhnh2009@gmail.com 11a642eb-c7ba-4bfa-931f-cb85e46e6a90 expired
