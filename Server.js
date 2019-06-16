@@ -100,9 +100,11 @@ function getListFriends() {
 
 function getToDay() {
     var today = new Date();
+    var now = Date.now()
     var day = today.getDate();
     var h = today.getHours();
     var phut = today.getMinutes();
-    console.log(day)
+    console.log(`${day}-${h}-${phut}`)
 }
 getToDay()
+
