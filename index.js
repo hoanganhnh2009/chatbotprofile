@@ -36,7 +36,7 @@ app.listen(port, function() {
 });
 
 app.get("/", function(req, res) {
-  res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành`);
+  res.send(`Hello, Tôi là chat bot của Nguyễn Hữu Thành V2`);
 });
 login(
 /*   {
