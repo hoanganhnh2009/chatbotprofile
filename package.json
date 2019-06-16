@@ -14,9 +14,12 @@
     "npm": "5.0.4"
   },
   "dependencies": {
+    "esm": "^3.2.4",
     "express": "^4.16.4",
-    "facebook-chat-api": "^1.6.0",
-    "request": "^2.88.0"
+    "facebook-chat-api": "^1.6.1",
+    "mysql-ssh": "^1.0.6",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {},
   "repository": {
