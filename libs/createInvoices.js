@@ -33,7 +33,6 @@ let defaultState = {
   listProduct: []
 };
 function createInvoices(item) {
-  console.log("TCL: createInvoices -> item", item);
   const headers = {
     "Content-Type": "application/json"
   };
@@ -43,7 +42,6 @@ function createInvoices(item) {
     ...defaultState,
     ...item
   };
-  console.log("TCL: createInvoices -> formData", formData);
   let body = JSON.stringify([formData]);
   request(
     {
@@ -56,13 +54,54 @@ function createInvoices(item) {
       if (error) {
         console.log(error);
       } else {
+        body = JSON.parse(body);
         if (body.status === "success") {
-          console.log("Create Invoices Success");
+          sendNotification(body, formData.name);
         }
       }
     }
   );
   return true;
 }
-// createInvoiceAbitStore();
+
+function sendNotification(response, name) {
+  let body = {
+    to: "/topics/shop_13077",
+    notification: {
+      title: "Đơn hàng từ " + name,
+      body: "Xem đơn " + response.invoice_no + " trên Abitstore.vn",
+      sound: "bell.mp3",
+      show_in_foreground: true,
+      badge: 1,
+      ticker: "My Notification Ticker",
+      click_action: "vn.nitco.Abitstore",
+      icon: "ic_launcher"
+    },
+    data: {
+      targetScreen: "_billDetail",
+      id: response.invoiceid
+    },
+    priority: "high"
+  };
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization:
+      "key=AAAAFKtxeJk:APA91bF12mk18OzRw57TP1fcCrU96E9IpiBQQzTP8GK_sI1H3quzCYZ_Muh1c9xNfAtHi7uGs-w5oYF6NK1mSFPcqh5aAeSOrnNdTyrgDZH2n_1UsK32vuZfGp2NNRRkJPO2fqPkL1tt"
+  };
+  let url = "https://fcm.googleapis.com/fcm/send";
+  body = JSON.stringify(body);
+  request(
+    {
+      headers: headers,
+      uri: url,
+      body: body,
+      method: "POST"
+    },
+    function(error, response, body) {
+      console.log("TCL: sendNotification -> body", body);
+    }
+  );
+}
+// sendNotification({"status":"success","code":"202","message":"Tạo đơn hàng thành công","invoiceid":"13996259","invoice_no":"EG13811982-64"},"Thành")
+createInvoices();
 module.exports = createInvoices;
